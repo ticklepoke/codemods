@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/ticklepoke/codemods/compare/v1.5.0...v1.6.0) (2021-06-11)
+
+
+### Features
+
+* **transform:** Add remove-debugger transform ([99f21bf](https://github.com/ticklepoke/codemods/commit/99f21bf5d4c81e5e2576fc6e3f7440cc57fdb058))
+
 # [1.5.0](https://github.com/ticklepoke/codemods/compare/v1.4.0...v1.5.0) (2021-06-11)
 
 
