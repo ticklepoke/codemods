@@ -8,7 +8,8 @@
   "author": "ticklepoke",
   "license": "MIT",
   "scripts": {
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "doc:gen": "node node_modules/markdown-include/bin/cli.js ./markdown.json"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
