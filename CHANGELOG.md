@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/ticklepoke/codemods/compare/v1.4.0...v1.5.0) (2021-06-11)
+
+
+### Features
+
+* **plop:** Add transform plop ability ([311dcc0](https://github.com/ticklepoke/codemods/commit/311dcc0bb2099cdde8f69698d2d8e778be4e0cdd))
+
 # [1.4.0](https://github.com/ticklepoke/codemods/compare/v1.3.0...v1.4.0) (2021-06-11)
 
 
