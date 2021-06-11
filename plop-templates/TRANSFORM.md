@@ -2,12 +2,11 @@
 
 `description of {{name}} transform here`
 
-Input code:
 ```ts
+// Input code
 
-```
 
-Output code:
-```ts
+// Output code
+
 
 ```
