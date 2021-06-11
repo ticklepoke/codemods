@@ -24,5 +24,14 @@ Fill in the fixture files with the input and output code. Then, run
 yarn test
 ```
 
-# Transforms
+### Branch Naming
+
+Branches follow this naming convention:
+
+- For new transforms `feat/transfrom-[transform_name]`
+
+- For bug fixes: `fix/[bug_description]`
+
+- For other chores `chore/[chore_description]`
+## Transforms
 

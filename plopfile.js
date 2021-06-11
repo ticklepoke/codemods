@@ -29,6 +29,11 @@ module.exports = function (plop) {
         path: 'src/__testfixtures__/{{name}}.output.js',
         templateFile: 'plop-templates/transform.fixture.ts',
       },
+      {
+        type: 'append',
+        path: 'docs/TRANSFORMS.md',
+        templateFile: 'plop-templates/TRANSFORM.md',
+      },
     ],
   });
 };
