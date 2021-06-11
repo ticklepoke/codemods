@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/ticklepoke/codemods/compare/v1.6.0...v1.7.0) (2021-06-11)
+
+
+### Features
+
+* **transform:** Add remove-console transform ([11a9edf](https://github.com/ticklepoke/codemods/commit/11a9edf9cdf6d8c94dae2653d3b8470cfafa6180))
+* **utils:** Add multiple transform util ([a1a1e51](https://github.com/ticklepoke/codemods/commit/a1a1e516032f547a8263c1193541e80279932b5b))
+
 # [1.6.0](https://github.com/ticklepoke/codemods/compare/v1.5.0...v1.6.0) (2021-06-11)
 
 
