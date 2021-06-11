@@ -5,30 +5,26 @@
 Removes all debugger statements
 
 
-Input code:
 ```ts
+// Input code
 1+1;
 debugger;
-```
 
-Output code:
-```ts
+// Output code
 1+1;
 ```
 ### remove-console
 
 Removes all console statements, include destructured console statements
 
-Input code:
 ```ts
+// Input code
 console.log();
 
 const { log } = console;
 
 log();
-```
 
-Output code:
-```ts
+// Output code
 // empty
 ```

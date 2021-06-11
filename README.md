@@ -43,30 +43,43 @@ Branches follow this naming convention:
 Removes all debugger statements
 
 
-Input code:
 ```ts
+// Input code
 1+1;
 debugger;
-```
 
-Output code:
-```ts
+// Output code
 1+1;
 ```
 ### remove-console
 
 Removes all console statements, include destructured console statements
 
-Input code:
 ```ts
+// Input code
 console.log();
 
 const { log } = console;
 
 log();
-```
 
-Output code:
-```ts
+// Output code
 // empty
+```
+## Road Map
+
+Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
+
+- [ ] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
+
+- [ ] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
+
+```ts
+// from this
+`this is a string`
+`template string: ${true}`
+
+// to this
+'this is a string'
+`template string: ${true}`
 ```
