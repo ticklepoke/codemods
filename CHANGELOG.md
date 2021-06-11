@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/ticklepoke/codemods/compare/v1.2.0...v1.3.0) (2021-06-11)
+
+
+### Bug Fixes
+
+* **eslint:** Single quotes ([490a5e3](https://github.com/ticklepoke/codemods/commit/490a5e34eafa9ee0fe9ba8ba22294e710ccedcdf))
+
+
+### Features
+
+* **husky:** Setup husky, lintstaged ([ff620e0](https://github.com/ticklepoke/codemods/commit/ff620e047b9bf0bedafd40d4f6cf25b149f8919a))
+
 # [1.2.0](https://github.com/ticklepoke/codemods/compare/v1.1.1...v1.2.0) (2021-06-11)
 
 
