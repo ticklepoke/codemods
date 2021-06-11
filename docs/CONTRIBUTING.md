@@ -1,9 +1,3 @@
-# codemods
-
-JavaScript codemods using jscodeshift
-
-## Usage
-
 ## Development
 
 ### Creating a new transform
@@ -23,6 +17,3 @@ Fill in the fixture files with the input and output code. Then, run
 ```sh
 yarn test
 ```
-
-# Transforms
-
