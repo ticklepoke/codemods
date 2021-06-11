@@ -4,6 +4,8 @@ JavaScript codemods using jscodeshift
 
 ## Usage
 
+Coming soon: npm package
+
 ## Development
 
 ### Creating a new transform
@@ -33,6 +35,7 @@ Branches follow this naming convention:
 - For bug fixes: `fix/[bug_description]`
 
 - For other chores `chore/[chore_description]`
+
 ## Transforms
 
 ### remove-debugger
