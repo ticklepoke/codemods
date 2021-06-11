@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/ticklepoke/codemods/compare/v1.3.0...v1.4.0) (2021-06-11)
+
+
+### Bug Fixes
+
+* **jest:** Ignore plop templates ([d7637a3](https://github.com/ticklepoke/codemods/commit/d7637a301ca87b5b4acb6e8bf848fa145b22fc0f))
+
+
+### Features
+
+* **plop:** Add plop file ability ([ec02999](https://github.com/ticklepoke/codemods/commit/ec029998d6c386ff6a5e8b6954f7a8c11d4a298b))
+
 # [1.3.0](https://github.com/ticklepoke/codemods/compare/v1.2.0...v1.3.0) (2021-06-11)
 
 
