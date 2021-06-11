@@ -21,7 +21,7 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'src/__testfixtures__/{{name}}.intput.js',
+        path: 'src/__testfixtures__/{{name}}.input.js',
         templateFile: 'plop-templates/transform.fixture.ts',
       },
       {
