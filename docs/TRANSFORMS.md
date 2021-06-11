@@ -2,4 +2,16 @@
 
 ### remove-debugger
 
-`description of remove-debugger transform here`
+Removes all debugger statements
+
+
+Input code:
+```ts
+1+1;
+debugger;
+```
+
+Output code:
+```ts
+1+1;
+```
