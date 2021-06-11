@@ -12,7 +12,10 @@
     "doc:gen": "node node_modules/markdown-include/bin/cli.js ./markdown.json",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint --fix src/**/*.ts",
-    "test": "echo 'No tests found'"
+    "test": "echo 'No tests found'",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
@@ -23,7 +26,10 @@
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "markdown-include": "^0.4.3",
+    "pinst": "^2.1.6",
     "prettier": "^2.3.1",
     "semantic-release": "^17.4.3",
     "semantic-release-cli": "^5.4.3",
