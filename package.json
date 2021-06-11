@@ -1,0 +1,16 @@
+{
+  "name": "codemods",
+  "version": "0.0.0-development",
+  "description": "JavaScript codemods using Facebook's jscodeshift",
+  "main": "index.js",
+  "repository": "https://github.com/ticklepoke/codemods.git",
+  "author": "ticklepoke",
+  "license": "MIT",
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "^17.4.3",
+    "semantic-release-cli": "^5.4.3"
+  }
+}
