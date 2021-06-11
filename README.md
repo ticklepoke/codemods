@@ -33,5 +33,10 @@ Branches follow this naming convention:
 - For bug fixes: `fix/[bug_description]`
 
 - For other chores `chore/[chore_description]`
+
 ## Transforms
+
+### remove-debugger
+
+`description of remove-debugger transform here`
 

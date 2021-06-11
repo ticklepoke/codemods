@@ -9,6 +9,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "ignorePatterns": "src/__testfixtures__/**/*.js",
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": [
