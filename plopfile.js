@@ -36,7 +36,7 @@ module.exports = function (plop) {
       },
       {
         type: 'append',
-        pattern: 'YARN PLOP HERE',
+        pattern: 'YARN PLOP TRANSFORMS',
         path: 'src/index.ts',
         template: `
   {
