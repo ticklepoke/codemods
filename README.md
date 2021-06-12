@@ -34,6 +34,31 @@ Execute a codemod:
 jscodeshift -t dist/[TRANSFORM FILENAME.js] [YOUR INPUT FILE.js]
 ```
 
+### via npm
+
+```sh
+# npm
+npm install @ticklepoke/codemods
+
+# yarn
+yarn add @ticklepoke/codemods
+```
+
+Install jscodeshift and format with `dos2unix`
+```sh
+yarn add jscodeshift &&
+dos2unix node_modules/jscodeshift/bin/*
+```
+
+Add a transform to your `package.json`
+```json
+{
+  "scripts": {
+    "start": "jscodeshift -d -p -t node_modules/@ticklepoke/codemods/dist/[DESIRED TRANSFORM].js [YOUR INPUT FILE].js",
+  },
+}
+
+```
 ## Development
 
 ### Creating a new transform
