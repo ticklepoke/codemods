@@ -1,4 +1,4 @@
-# codemods
+# codemods [![CI](https://github.com/ticklepoke/codemods/actions/workflows/CI.yml/badge.svg)](https://github.com/ticklepoke/codemods/actions/workflows/CI.yml)
 
 JavaScript codemods using jscodeshift
 
