@@ -16,6 +16,12 @@ Install the codeshift runner globally. There is a known bug where the runner doe
 npm install -g jscodeshift
 ```
 
+Alternatively, one can format `jscodeshift`'s binaries on every install using a tool such as `dos2unix`:
+
+```sh
+dos2unix node_modules/jscodeshift/bin/*
+```
+
 Install dependencies and build transforms
 
 ```sh
@@ -44,7 +50,7 @@ npm install @ticklepoke/codemods
 yarn add @ticklepoke/codemods
 ```
 
-Install jscodeshift and format with `dos2unix`
+Install jscodeshift and format with `dos2unix` if we want to use jscodeshift within a `package.json` script
 ```sh
 yarn add jscodeshift &&
 dos2unix node_modules/jscodeshift/bin/*
