@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/ticklepoke/codemods/compare/v1.12.1...v1.13.0) (2021-06-12)
+
+
+### Features
+
+* **npm:** Add build step to npm release ([880a8ea](https://github.com/ticklepoke/codemods/commit/880a8ea29a98f82cc1322e9a6a7fa23c06d9c84d))
+
 ## [1.12.1](https://github.com/ticklepoke/codemods/compare/v1.12.0...v1.12.1) (2021-06-12)
 
 
