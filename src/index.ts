@@ -10,12 +10,17 @@ const TRANSFORMS = [
     value: 'remove-debugger',
   },
   // YARN PLOP TRANSFORMS
+
+  {
+    name: 'Convert template literals without any template elements to string literal',
+    value: 'convert-template-literal',
+  },
 ];
 
 function showOptions() {
   console.log(colors.bgRed('\nAvailable transforms:\n'));
   for (const T of TRANSFORMS) {
-    console.log(colors.blue(`dist/${T.value}.js:`), `\t ${T.name}`);
+    console.log(colors.blue(`dist/${T.value}.js:`), `${T.name}`);
   }
   console.log(colors.bgRed('\nUsage:\n'));
   console.log(colors.yellow('\tjscodeshift -t dist/[TRANSFORM FILENAME.js] [YOUR FILE.js]'));
