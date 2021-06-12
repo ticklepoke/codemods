@@ -6,7 +6,7 @@ export interface Context {
 }
 
 export default function transform(file: FileInfo, api: API, options: Options): string {
-  const transforms = [removeDestructuredConsoleDecl, removeCallExpressionConsole];
+  const transforms = [removeDestructuredConsoleDecl, removeCopiedConsoleDecl, removeCallExpressionConsole];
   const destructuredVariables = new Set<string>();
 
   return applyMultipleTransforms<Context>(file, api, transforms, options, { destructuredVariables });
@@ -20,6 +20,7 @@ function removeCallExpressionConsole(props: { file: FileInfo; api: API; options:
   } = props;
   const j = api.jscodeshift;
 
+  console.log(destructuredVariables);
   return j(file.source)
     .find(j.ExpressionStatement)
     .forEach((path) => {
@@ -79,6 +80,37 @@ function removeDestructuredConsoleDecl(props: { file: FileInfo; api: API; contex
       });
 
       if (isDestructuredFromConsole) {
+        j(path).remove();
+      }
+    })
+    .toSource();
+}
+
+function removeCopiedConsoleDecl(props: { file: FileInfo; api: API; context: Context }): string {
+  const {
+    file,
+    api,
+    context: { destructuredVariables },
+  } = props;
+
+  const j = api.jscodeshift;
+
+  return j(file.source)
+    .find(j.VariableDeclaration)
+    .forEach((path) => {
+      const { declarations } = path.value;
+      const isReassignedFromDestructuredConsole = declarations.some((decl) => {
+        if (decl.type === 'VariableDeclarator') {
+          if (decl.init?.type === 'Identifier') {
+            if (destructuredVariables.has(decl.init.name) && decl.id.type === 'Identifier') {
+              console.log(decl.id.name);
+              destructuredVariables.add(decl.id.name);
+              return true;
+            }
+          }
+        }
+      });
+      if (isReassignedFromDestructuredConsole) {
         j(path).remove();
       }
     })
