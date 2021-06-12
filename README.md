@@ -94,13 +94,28 @@ log();
 // Output code
 // empty
 ```
+### convert-template-literal
+
+Converts template literals without any template elements to string literals
+
+```ts
+// Input code
+const a = `abcde`;
+const b = `1234${true}`;
+
+
+// Output code
+const a = 'abcde';
+const b = `1234${true}`;
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
 
 - [ ] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
 
-- [ ] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
+- [x] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
 
 ```ts
 // from this

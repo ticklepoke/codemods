@@ -28,3 +28,18 @@ log();
 // Output code
 // empty
 ```
+### convert-template-literal
+
+Converts template literals without any template elements to string literals
+
+```ts
+// Input code
+const a = `abcde`;
+const b = `1234${true}`;
+
+
+// Output code
+const a = 'abcde';
+const b = `1234${true}`;
+
+```
