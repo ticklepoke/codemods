@@ -188,7 +188,7 @@ let vars = "b"
 `a${vars}c`
 ```
 
-- [ ] **no-params-reassignment**: Convert function params reassignment to scoped variables"
+- [ ] **no-params-reassignment**: Convert function params reassignment to scoped variables
 
 ```ts
 // from this
@@ -200,4 +200,18 @@ bar(baz) {
 bar(baz) {
     _baz = 1;
 }
+```
+
+- [ ] **convert-.then-async-await**: Conver `.then()` chaining to `async/await`
+
+```ts
+// from this
+someAsyncFn()
+    .then(res => 
+    // do something
+    )
+    .catch(p)
+    
+// to this
+let res = await someAsyncFn()
 ```
