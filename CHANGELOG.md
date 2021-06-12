@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/ticklepoke/codemods/compare/v1.10.0...v1.11.0) (2021-06-12)
+
+
+### Features
+
+* **remove-console:** Add support for log reassignment ([3d909ee](https://github.com/ticklepoke/codemods/commit/3d909ee43ab9947717eebda881a241e20926c8dd))
+
 # [1.10.0](https://github.com/ticklepoke/codemods/compare/v1.9.0...v1.10.0) (2021-06-12)
 
 
