@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/ticklepoke/codemods/compare/v1.8.0...v1.9.0) (2021-06-12)
+
+
+### Features
+
+* **terminal colors:** Add terminal colors ([4dbb3d4](https://github.com/ticklepoke/codemods/commit/4dbb3d442bb2bc0f85ebf9abb886895361077516))
+
 # [1.8.0](https://github.com/ticklepoke/codemods/compare/v1.7.0...v1.8.0) (2021-06-12)
 
 
