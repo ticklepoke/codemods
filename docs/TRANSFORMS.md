@@ -25,6 +25,10 @@ const { log } = console;
 
 log();
 
+const copiedLog = log; // Also handles this stupid case
+
+copiedLog();
+
 // Output code
 // empty
 ```
