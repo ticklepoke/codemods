@@ -102,7 +102,6 @@ function removeCopiedConsoleDecl(props: { file: FileInfo; api: API; context: Con
         if (decl.type === 'VariableDeclarator') {
           if (decl.init?.type === 'Identifier') {
             if (destructuredVariables.has(decl.init.name) && decl.id.type === 'Identifier') {
-              console.log(decl.id.name);
               destructuredVariables.add(decl.id.name);
               return true;
             }
