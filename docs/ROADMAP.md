@@ -4,7 +4,7 @@ Future transforms in the works. Feel free to open an issue if you would like to 
 
 - [ ] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
 
-- [ ] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
+- [x] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
 
 ```ts
 // from this
