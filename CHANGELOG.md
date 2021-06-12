@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/ticklepoke/codemods/compare/v1.7.0...v1.8.0) (2021-06-12)
+
+
+### Features
+
+* **babel:** Add babel support ([eeb6c9b](https://github.com/ticklepoke/codemods/commit/eeb6c9ba991ccdae2acfae181e1a82082df0d429))
+* **dist:** Add dist files ([e9a50d6](https://github.com/ticklepoke/codemods/commit/e9a50d6ca76550b42be7e8e28315e8b3ace6e589))
+* **plop:** Add plopfile command ([2fccffd](https://github.com/ticklepoke/codemods/commit/2fccffde42a84c22585191c87e58829019c13545))
+
 # [1.7.0](https://github.com/ticklepoke/codemods/compare/v1.6.0...v1.7.0) (2021-06-11)
 
 
