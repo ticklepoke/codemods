@@ -20,7 +20,6 @@ function removeCallExpressionConsole(props: { file: FileInfo; api: API; options:
   } = props;
   const j = api.jscodeshift;
 
-  console.log(destructuredVariables);
   return j(file.source)
     .find(j.ExpressionStatement)
     .forEach((path) => {
