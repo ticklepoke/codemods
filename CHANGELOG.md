@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/ticklepoke/codemods/compare/v1.11.0...v1.12.0) (2021-06-12)
+
+
+### Features
+
+* npm release (empty) ([0d9155a](https://github.com/ticklepoke/codemods/commit/0d9155ad2a4006171a13e5ec2fa965575c7ab0e3))
+
 # [1.11.0](https://github.com/ticklepoke/codemods/compare/v1.10.0...v1.11.0) (2021-06-12)
 
 
