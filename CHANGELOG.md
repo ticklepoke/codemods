@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/ticklepoke/codemods/compare/v1.9.0...v1.10.0) (2021-06-12)
+
+
+### Features
+
+* **transform:** Add template literals ([a939d9f](https://github.com/ticklepoke/codemods/commit/a939d9fa9f076c1556e186ceb89f03ac20f36b58))
+
 # [1.9.0](https://github.com/ticklepoke/codemods/compare/v1.8.0...v1.9.0) (2021-06-12)
 
 
