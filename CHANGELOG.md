@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/ticklepoke/codemods/compare/v1.13.0...v1.13.1) (2021-06-12)
+
+
+### Bug Fixes
+
+* **remove console:** Remove console log ([59efd97](https://github.com/ticklepoke/codemods/commit/59efd97b9a38564119f429aa597fe5c1a73bd912))
+
 # [1.13.0](https://github.com/ticklepoke/codemods/compare/v1.12.1...v1.13.0) (2021-06-12)
 
 
