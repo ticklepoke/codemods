@@ -34,6 +34,16 @@ module.exports = function (plop) {
         path: 'docs/TRANSFORMS.md',
         templateFile: 'plop-templates/TRANSFORM.md',
       },
+      {
+        type: 'append',
+        pattern: 'YARN PLOP HERE',
+        path: 'src/index.ts',
+        template: `
+  {
+    name: 'TODO: fill in description',
+    value: '{{name}}',
+  },`,
+      },
     ],
   });
 };
