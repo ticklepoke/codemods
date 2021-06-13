@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/ticklepoke/codemods/compare/v1.16.1...v1.16.2) (2021-06-13)
+
+
+### Bug Fixes
+
+* **docs:** Add docs to list transform ([fc98610](https://github.com/ticklepoke/codemods/commit/fc9861063a2aede423f655a046100ab02c709615))
+
 ## [1.16.1](https://github.com/ticklepoke/codemods/compare/v1.16.0...v1.16.1) (2021-06-13)
 
 
