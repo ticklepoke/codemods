@@ -16,7 +16,7 @@ Future transforms in the works. Feel free to open an issue if you would like to 
 `template string: ${true}`
 ```
 
-- [ ] **convert-object-destructure**: Transform variable declarations to object-destructure:
+- [x] **convert-object-destructure**: Transform variable declarations to object-destructure:
 
 ```ts
 // from this
