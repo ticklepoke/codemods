@@ -5,6 +5,16 @@ export interface Context {
   destructuredVariables: Set<string>;
 }
 
+/**
+ * Improvements:
+ *
+ * The following case is not handled:
+ * const a = {
+ *  prop: console.log
+ * }
+ *
+ * a.prop()
+ */
 export default function transform(file: FileInfo, api: API, options: Options): string {
   const transforms = [removeDestructuredConsoleDecl, removeCopiedConsoleDecl, removeCallExpressionConsole];
   const destructuredVariables = new Set<string>();
