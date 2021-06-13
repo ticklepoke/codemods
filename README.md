@@ -63,6 +63,7 @@ Add a transform to your `package.json`
 {
   "scripts": {
     "start": "jscodeshift -d -p -t node_modules/@ticklepoke/codemods/[DESIRED TRANSFORM].js [YOUR INPUT FILE].js",
+    "list:transform": "node node_modules/@ticklepoke/codemods/index.js",
     "fix:deps": "dos2unix node_modules/jscodeshift/bin/*"
   },
 }
