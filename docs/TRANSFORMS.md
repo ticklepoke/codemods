@@ -53,21 +53,38 @@ Converts variable declarations to object destructure. Also combines object destr
 
 ```ts
 // Input code
-const a = obj.a
+const a = obj.a;
+const b = obj.b;
+const d = obj.c;
 
-const b = otherObj.b
-const c = otherObj.c
+const c = newObj.c;
 
-const d = otherOtherObj.a;
-const e = otherOtherObj.b;
+function bar() {
+  const a = obj.a;
+  const c = obj.c;
+  const d = obj.c;
+  const e = otherObj.a;
+}
 
 // Output code
-const { a } = obj
-
-const { b, c } = otherObj
+const {
+    a,
+    b,
+    c: d
+} = obj;
 
 const {
-    a: d,
-    b: e
-} = otherOtherObj;
+  c
+} = newObj;
+
+function bar() {
+    const {
+        a,
+        c,
+        c: d
+    } = obj;
+    const {
+      a: e
+    } = otherObj;
+}
 ```

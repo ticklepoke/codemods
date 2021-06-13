@@ -1,28 +1,17 @@
-import { API, FileInfo, Identifier, Options, Property } from 'jscodeshift';
+import { API, BlockStatement, FileInfo, Options, VariableDeclaration, VariableDeclarator } from 'jscodeshift';
 import { applyMultipleTransforms } from './utils';
-
-interface Context {
-  store: Map<string, { key: string; value: string }[]>;
-}
 
 export default function transform(file: FileInfo, api: API, options: Options): string {
   const transforms = [convertDeclarationsToDestructure, removeDuplicateDeclarations];
-  const store = new Map<string, { key: string; value: string }[]>();
-
-  return applyMultipleTransforms<Context>(file, api, transforms, options, { store });
+  return applyMultipleTransforms<undefined>(file, api, transforms, options, undefined);
 }
 
-function convertDeclarationsToDestructure(props: {
-  file: FileInfo;
-  api: API;
-  options: Options;
-  context: Context;
-}): string {
-  const {
-    file,
-    api,
-    context: { store },
-  } = props;
+type Store = Map<string, { key: string; value: string }[]>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type StatementKind = BlockStatement | VariableDeclaration | any;
+
+function convertDeclarationsToDestructure(props: { file: FileInfo; api: API; options: Options }): string {
+  const { file, api } = props;
 
   const j = api.jscodeshift;
 
@@ -38,12 +27,6 @@ function convertDeclarationsToDestructure(props: {
           path.value.id = j.objectPattern([newProperty]);
 
           path.value.init = j.identifier(init.object.name);
-          const properties = store.get(init.object.name);
-          if (properties) {
-            properties.push({ key: init.property.name, value: id.name });
-          } else {
-            store.set(init.object.name, [{ key: init.property.name, value: id.name }]);
-          }
         }
       }
     })
@@ -52,43 +35,87 @@ function convertDeclarationsToDestructure(props: {
     });
 }
 
-function removeDuplicateDeclarations(props: { file: FileInfo; api: API; options: Options; context: Context }): string {
-  const {
-    file,
-    api,
-    context: { store },
-  } = props;
+function removeDuplicateDeclarations(props: { file: FileInfo; api: API; options: Options }): string {
+  const { file, api } = props;
 
   const j = api.jscodeshift;
 
-  const seen = new Set();
-
   return j(file.source)
-    .find(j.VariableDeclaration)
+    .find(j.Program)
     .forEach((path) => {
+      const { body } = path.value;
+
+      const topLevelDecls: Store = new Map();
+      scanOutDecls(body, topLevelDecls, api);
+
+      path.value.body = deleteDuplicateDecl(body, topLevelDecls);
+
+      // Handling each block
+      j(body)
+        .find(j.BlockStatement)
+        .forEach((block) => {
+          const store = new Map<string, { key: string; value: string }[]>();
+          scanOutDecls(block.value.body, store, api);
+          j(block).replaceWith(j.blockStatement(deleteDuplicateDecl(block.value.body, store)));
+        });
+    })
+    .toSource({ tabWidth: 4, useTabs: false });
+}
+
+function scanOutDecls(body: StatementKind[], store: Store, api: API) {
+  const j = api.jscodeshift;
+  body.forEach((node) => {
+    if (node.type === 'VariableDeclaration') {
       const {
         declarations: [declarator],
-      } = path.value;
-      if (
-        declarator.type === 'VariableDeclarator' &&
-        declarator.init?.type === 'Identifier' &&
-        declarator.id.type === 'ObjectPattern'
-      ) {
-        const props = store.get(declarator.init.name);
-        const { init, id } = declarator;
-        if (props && props.length > 1 && !seen.has(init.name)) {
-          const [currProp] = id.properties as Property[];
-
-          const newProps = props.map(({ key, value }) => j.property('init', j.identifier(key), j.identifier(value)));
-
-          newProps.forEach((p) => (p.shorthand = (p.key as Identifier).name === (p.value as Identifier).name));
-          newProps.filter(({ key }) => (key as Identifier).name !== (currProp.key as Identifier).name);
-          id.properties = newProps;
-          seen.add(init.name);
-        } else if (seen.has(init.name)) {
-          j(path).remove();
+      } = node;
+      const { id, init } = declarator as VariableDeclarator;
+      if (id.type === 'ObjectPattern' && init?.type === 'Identifier') {
+        const [property] = id.properties;
+        if (property.type === 'Property') {
+          const { key, value } = property;
+          if (key.type === 'Identifier' && value.type === 'Identifier') {
+            const decls = store.get(init.name);
+            if (decls) {
+              decls.push({
+                key: key.name,
+                value: value.name,
+              });
+              id.properties = decls.map((decl) => {
+                const prop = j.property('init', j.identifier(decl.key), j.identifier(decl.value));
+                prop.shorthand = decl.key === decl.value;
+                return prop;
+              });
+            } else {
+              store.set(init.name, [
+                {
+                  key: key.name,
+                  value: value.name,
+                },
+              ]);
+            }
+          }
         }
       }
-    })
-    .toSource({ tabWidth: 4, useTabs: true });
+    }
+  });
+}
+
+function deleteDuplicateDecl(body: StatementKind[], store: Store) {
+  return body.filter((node) => {
+    if (node.type === 'VariableDeclaration') {
+      const {
+        declarations: [declarator],
+      } = node;
+      const { id, init } = declarator as VariableDeclarator;
+      if (id.type === 'ObjectPattern' && init?.type === 'Identifier') {
+        if (id.properties.length === store.get(init.name)?.length) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    return true;
+  });
 }

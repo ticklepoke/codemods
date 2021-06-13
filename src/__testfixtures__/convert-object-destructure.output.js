@@ -1,13 +1,20 @@
 const {
-  a
+    a,
+    b,
+    c: d
 } = obj;
 
 const {
-    b,
-    c
-} = otherObj;
+  c
+} = newObj;
 
-const {
-    a: d,
-    b: e
-} = otherOtherObj;
+function bar() {
+    const {
+        a,
+        c,
+        c: d
+    } = obj;
+    const {
+      a: e
+    } = otherObj;
+}
