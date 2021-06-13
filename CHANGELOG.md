@@ -1,3 +1,10 @@
+## [1.16.3](https://github.com/ticklepoke/codemods/compare/v1.16.2...v1.16.3) (2021-06-13)
+
+
+### Bug Fixes
+
+* **transform-destructure:** Fix nested objects bug ([d738328](https://github.com/ticklepoke/codemods/commit/d738328ecb802334e0a3c0921cc019d91af1b0fd))
+
 ## [1.16.2](https://github.com/ticklepoke/codemods/compare/v1.16.1...v1.16.2) (2021-06-13)
 
 
