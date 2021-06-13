@@ -23,6 +23,8 @@ jobs:
 
       - run: yarn build
 
+      - run: cp -r package.json ./dist
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
