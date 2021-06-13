@@ -8,6 +8,9 @@ const {
   c
 } = newObj;
 
+const e = 1;
+1+1;
+
 function bar() {
     const {
         a,
@@ -17,4 +20,7 @@ function bar() {
     const {
       a: e
     } = otherObj;
+
+    const f = 1;
+    1+1;
 }
