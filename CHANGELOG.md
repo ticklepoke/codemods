@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/ticklepoke/codemods/compare/v1.15.0...v1.16.0) (2021-06-13)
+
+
+### Features
+
+* **docs:** Add deps fix script ([64a3930](https://github.com/ticklepoke/codemods/commit/64a3930da051eb6555465fd81a9fd9667eb4de4f))
+
 # [1.15.0](https://github.com/ticklepoke/codemods/compare/v1.14.0...v1.15.0) (2021-06-13)
 
 
