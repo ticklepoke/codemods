@@ -47,3 +47,27 @@ const a = 'abcde';
 const b = `1234${true}`;
 
 ```
+### convert-object-destructure
+
+Converts variable declarations to object destructure. Also combines object destructures of the same member expression
+
+```ts
+// Input code
+const a = obj.a
+
+const b = otherObj.b
+const c = otherObj.c
+
+const d = otherOtherObj.a;
+const e = otherOtherObj.b;
+
+// Output code
+const { a } = obj
+
+const { b, c } = otherObj
+
+const {
+    a: d,
+    b: e
+} = otherOtherObj;
+```

@@ -10,7 +10,10 @@ const TRANSFORMS = [
     value: 'remove-debugger',
   },
   // YARN PLOP TRANSFORMS
-
+  {
+    name: 'Converts variable declarations to object destructure',
+    value: 'convert-object-destructure',
+  },
   {
     name: 'Convert template literals without any template elements to string literal',
     value: 'convert-template-literal',
