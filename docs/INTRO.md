@@ -4,6 +4,8 @@ JavaScript codemods using jscodeshift
 
 ## Usage
 
+> The npm package is namespaced to my username (@ticklepoke) for now as it is intended to be a personal project. If this package gains enough traction, I will consider finding a more elegant package name.
+
 ### via git
 
 ```sh 
