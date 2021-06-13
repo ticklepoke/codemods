@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/ticklepoke/codemods/compare/v1.16.0...v1.16.1) (2021-06-13)
+
+
+### Bug Fixes
+
+* **build:** Copy readme to dist ([7145635](https://github.com/ticklepoke/codemods/commit/7145635185d7e8afc573ad319f3bed96e19f6986))
+
 # [1.16.0](https://github.com/ticklepoke/codemods/compare/v1.15.0...v1.16.0) (2021-06-13)
 
 
