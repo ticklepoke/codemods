@@ -1,7 +1,12 @@
 const a = obj.a;
+const b = obj.b;
+const d = obj.c;
 
-const b = otherObj.b;
-const c = otherObj.c;
+const c = newObj.c;
 
-const d = otherOtherObj.a;
-const e = otherOtherObj.b;
+function bar() {
+  const a = obj.a;
+  const c = obj.c;
+  const d = obj.c;
+  const e = otherObj.a;
+}
