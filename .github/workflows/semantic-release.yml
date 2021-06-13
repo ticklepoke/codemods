@@ -25,6 +25,8 @@ jobs:
 
       - run: cp -r package.json ./dist
 
+      - run: cp -r README.md ./dist
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
