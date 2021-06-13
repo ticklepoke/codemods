@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/ticklepoke/codemods/compare/v1.14.0...v1.15.0) (2021-06-13)
+
+
+### Features
+
+* **docs:** Add npm disclaimer ([579e8e2](https://github.com/ticklepoke/codemods/commit/579e8e203a7e9befda5537f84f6ba5e415d5e023))
+
 # [1.14.0](https://github.com/ticklepoke/codemods/compare/v1.13.1...v1.14.0) (2021-06-13)
 
 
