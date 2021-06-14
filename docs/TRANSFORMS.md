@@ -90,7 +90,7 @@ function bar() {
 ```
 ### convert-object-shorthand
 
-Convert object expressions and object patterns that have the same key and value to shorthand;
+Convert object expressions and object patterns that have the same key and value to shorthand
 
 ```ts
 // Input code
