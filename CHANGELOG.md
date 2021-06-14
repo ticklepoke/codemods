@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/ticklepoke/codemods/compare/v1.16.3...v1.17.0) (2021-06-14)
+
+
+### Features
+
+* **object-shorthand:** Add transform object shorthand ([f7d9ab6](https://github.com/ticklepoke/codemods/commit/f7d9ab6bfdf3a95ba5eec3eab94cc666a0b96b99))
+
 ## [1.16.3](https://github.com/ticklepoke/codemods/compare/v1.16.2...v1.16.3) (2021-06-13)
 
 
