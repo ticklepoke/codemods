@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Converts object expressions and patterns to shorthand when key and values are the same',
+    value: 'convert-object-shorthand',
+  },
+  {
     name: 'Converts variable declarations to object destructure',
     value: 'convert-object-destructure',
   },
