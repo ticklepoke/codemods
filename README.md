@@ -189,6 +189,23 @@ function bar() {
     } = otherObj;
 }
 ```
+### convert-object-shorthand
+
+Convert object expressions and object patterns that have the same key and value to shorthand;
+
+```ts
+// Input code
+const { a: a } = obj;
+
+bar({a: a});
+
+
+// Output code
+const { a } = obj;
+
+bar({ a });
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
