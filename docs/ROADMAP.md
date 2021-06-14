@@ -28,7 +28,7 @@ const { a } = obj
 
 - [ ] **convert-bind-arrow-function**: Transform functions which `.bind(this)` to arrow functions
 
-- [ ] **convert-object-shorthand**: Convert object literals with same key - values to object shorthand
+- [x] **convert-object-shorthand**: Convert object literals with same key - values to object shorthand
 
 - [ ] **concat-strings-template-literal**: Convert strings concatenations to template literals:
 
