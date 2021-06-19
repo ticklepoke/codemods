@@ -206,6 +206,20 @@ const { a } = obj;
 bar({ a });
 
 ```
+### convert-concat-strings
+
+Converts string concatenations to template literals
+
+```ts
+// Input code
+let vars = "b"
+"a" + vars + "c"
+
+// Output code
+let vars = "b"
+`a${vars}c`
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.

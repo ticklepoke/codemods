@@ -105,3 +105,17 @@ const { a } = obj;
 bar({ a });
 
 ```
+### convert-concat-strings
+
+Converts string concatenations to template literals
+
+```ts
+// Input code
+let vars = "b"
+"a" + vars + "c"
+
+// Output code
+let vars = "b"
+`a${vars}c`
+
+```
