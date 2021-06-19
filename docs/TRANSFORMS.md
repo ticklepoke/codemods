@@ -107,7 +107,7 @@ bar({ a });
 ```
 ### convert-concat-strings
 
-Converts string concatenations to template literals
+Converts string concatenations to template literals. Unable to handle escaped characters
 
 ```ts
 // Input code

@@ -30,7 +30,7 @@ const { a } = obj
 
 - [x] **convert-object-shorthand**: Convert object literals with same key - values to object shorthand
 
-- [ ] **concat-strings-template-literal**: Convert strings concatenations to template literals:
+- [x] **concat-strings-template-literal**: Convert strings concatenations to template literals:
 
 ```ts
 // from this
