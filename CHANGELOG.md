@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/ticklepoke/codemods/compare/v1.17.0...v1.18.0) (2021-06-19)
+
+
+### Features
+
+* **concat-string:** Add concat string logic ([4354aea](https://github.com/ticklepoke/codemods/commit/4354aeac2785f77aec357476c9aaa13c72c8387c))
+
 # [1.17.0](https://github.com/ticklepoke/codemods/compare/v1.16.3...v1.17.0) (2021-06-14)
 
 
