@@ -54,6 +54,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
+    "ast-types": "^0.14.2",
     "colors": "^1.4.0",
     "jscodeshift": "^0.12.0"
   }
