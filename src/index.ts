@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Converts string concatenation into template literals, including concatenation of strings and variables',
+    value: 'convert-concat-strings',
+  },
+  {
     name: 'Converts object expressions and patterns to shorthand when key and values are the same',
     value: 'convert-object-shorthand',
   },
