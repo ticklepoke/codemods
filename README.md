@@ -220,11 +220,37 @@ let vars = "b"
 `a${vars}c`
 
 ```
+### convert-let-const
+
+Converts variable declarations that are not reassigned from `let` to `const`. Considers shadowed variables as well
+
+```ts
+// Input code
+let a = 1;
+let b = 1;
+b = 2;
+{
+  let a = 2;
+  let b = 3;
+  a = 3;
+}
+
+// Output code
+const a = 1;
+let b = 1;
+b = 2;
+{
+  let a = 2;
+  const b = 3;
+  a = 3;
+}
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
 
-- [ ] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
+- [x] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
 
 - [x] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
 

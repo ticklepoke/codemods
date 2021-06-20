@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Converts variable declarations that are not reassigned from `let` to `const`.',
+    value: 'convert-let-const',
+  },
+  {
     name: 'Converts string concatenation into template literals, including concatenation of strings and variables',
     value: 'convert-concat-strings',
   },
