@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/ticklepoke/codemods/compare/v1.18.0...v1.19.0) (2021-06-20)
+
+
+### Features
+
+* **convert-let-const:** Implementation ([fe4c6a5](https://github.com/ticklepoke/codemods/commit/fe4c6a55c958c48657dc7cdb3da2985623f1768d))
+
 # [1.18.0](https://github.com/ticklepoke/codemods/compare/v1.17.0...v1.18.0) (2021-06-19)
 
 
