@@ -119,3 +119,29 @@ let vars = "b"
 `a${vars}c`
 
 ```
+### convert-let-const
+
+Converts variable declarations that are not reassigned from `let` to `const`. Considers shadowed variables as well
+
+```ts
+// Input code
+let a = 1;
+let b = 1;
+b = 2;
+{
+  let a = 2;
+  let b = 3;
+  a = 3;
+}
+
+// Output code
+const a = 1;
+let b = 1;
+b = 2;
+{
+  let a = 2;
+  const b = 3;
+  a = 3;
+}
+
+```
