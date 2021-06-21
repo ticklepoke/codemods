@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Convert function expressions to arrow functions while respecting lexical this',
+    value: 'convert-function-expression-arrow',
+  },
+  {
     name: 'Converts variable declarations that are not reassigned from `let` to `const`.',
     value: 'convert-let-const',
   },

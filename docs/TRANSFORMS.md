@@ -145,3 +145,15 @@ b = 2;
 }
 
 ```
+### convert-function-expression-arrow
+
+Transfrom function expressions to arrow functions without violating lexical this. Only converts if this is not used in the function body:
+```ts
+// Input code
+const a = function() {};
+const b = function() { this };
+
+// Output code
+const a = () => {};
+const b = function() { this };
+```
