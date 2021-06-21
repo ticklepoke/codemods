@@ -2,44 +2,24 @@
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
 
-- [x] **convert-let-const**: Transform variables that are not reassigned from `let` to `const`
-
-- [x] **convert-empty-template-literal**: Transform template literals with no template elements to string literals: 
+- [ ] **convert-bind-arrow-function**: Transform function expression with `.bind(this)` to arrow functions:
 
 ```ts
 // from this
-`this is a string`
-`template string: ${true}`
+const a = function() {}.bind(this);
 
 // to this
-'this is a string'
-`template string: ${true}`
+const a = () => {};
 ```
 
-- [x] **convert-object-destructure**: Transform variable declarations to object-destructure:
-
+- [ ] **convert-function-expression-arrow-function**: Transfrom function expressions to arrow functions without violating lexical `this`. Only converts if `this` is not used in the function body:
 ```ts
 // from this
-const a = obj.a
+const a = function() {};
 
 // to this
-const { a } = obj
-```
+const a = () => {};
 
-- [ ] **convert-bind-arrow-function**: Transform functions which `.bind(this)` to arrow functions
-
-- [x] **convert-object-shorthand**: Convert object literals with same key - values to object shorthand
-
-- [x] **concat-strings-template-literal**: Convert strings concatenations to template literals:
-
-```ts
-// from this
-let vars = "b"
-"a" + vars + "c"
-
-// to this
-let vars = "b"
-`a${vars}c`
 ```
 
 - [ ] **no-params-reassignment**: Convert function params reassignment to scoped variables
@@ -56,7 +36,7 @@ bar(baz) {
 }
 ```
 
-- [ ] **convert-.then-async-await**: Conver `.then()` chaining to `async/await`
+- [ ] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
 
 ```ts
 // from this
@@ -69,3 +49,31 @@ someAsyncFn()
 // to this
 let res = await someAsyncFn()
 ```
+
+- [ ] **convert-unchained-variables**: Convert chained variable declarations to individual declarations:
+```ts
+// from this
+let a = b = [];
+let c = d = 1;
+
+// to this
+let b = [];
+let a = b;
+
+let d = 1;
+let c = d;
+```
+
+### React Codemods
+
+- [ ] **destructure-props**: Destructures react props:
+```ts
+// from this:
+this.props.bar;
+
+// to this
+const { bar } = this.props;
+bar;
+```
+
+- [ ] **pure-to-memo-function**: Converts class components with only a `render()` method into a `React.memo` functional component
