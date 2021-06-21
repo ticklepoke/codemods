@@ -12,7 +12,7 @@ const a = function() {}.bind(this);
 const a = () => {};
 ```
 
-- [ ] **convert-function-expression-arrow-function**: Transfrom function expressions to arrow functions without violating lexical `this`. Only converts if `this` is not used in the function body:
+- [x] **convert-function-expression-arrow-function**: Transfrom function expressions to arrow functions without violating lexical `this`. Only converts if `this` is not used in the function body:
 ```ts
 // from this
 const a = function() {};
