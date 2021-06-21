@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/ticklepoke/codemods/compare/v1.19.0...v1.20.0) (2021-06-21)
+
+
+### Features
+
+* **convert-arrow:** Add implementation ([e55c458](https://github.com/ticklepoke/codemods/commit/e55c4582991829dec619745083d0c5d25d4f9c77))
+
 # [1.19.0](https://github.com/ticklepoke/codemods/compare/v1.18.0...v1.19.0) (2021-06-20)
 
 
