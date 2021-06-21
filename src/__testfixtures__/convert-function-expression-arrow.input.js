@@ -5,3 +5,9 @@ const b = function () {
 const c = function () {
   let a = 1;
 };
+const d = function () {
+  return 1;
+};
+const e = function () {
+  return this.a;
+};
