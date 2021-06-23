@@ -294,6 +294,28 @@ const a = function() {}.bind(this);
 const a = () => {};
 
 ```
+### convert-then-async
+
+Convert `.then()` promises to `async / await` with support for `catch` and `finally` blocks
+
+```ts
+// Input code
+function bar() {
+  return myPromise.then((a) => a).catch(e => e).finally()
+}
+
+// Output code
+async function bar() {
+  try {
+    const a = await myPromise;
+  } catch (e) {
+    return e
+  } finally {
+
+  }
+}
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
@@ -332,7 +354,7 @@ bar(baz) {
 }
 ```
 
-- [ ] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
+- [x] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
 
 ```ts
 // from this

@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Convert then() promises to async / await',
+    value: 'convert-then-async',
+  },
+  {
     name: 'Convert functions with bind(this) to arrow functions',
     value: 'convert-bind-arrow-function',
   },

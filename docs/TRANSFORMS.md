@@ -193,3 +193,25 @@ const a = function() {}.bind(this);
 const a = () => {};
 
 ```
+### convert-then-async
+
+Convert `.then()` promises to `async / await` with support for `catch` and `finally` blocks
+
+```ts
+// Input code
+function bar() {
+  return myPromise.then((a) => a).catch(e => e).finally()
+}
+
+// Output code
+async function bar() {
+  try {
+    const a = await myPromise;
+  } catch (e) {
+    return e
+  } finally {
+
+  }
+}
+
+```
