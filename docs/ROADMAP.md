@@ -2,7 +2,7 @@
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
 
-- [ ] **convert-bind-arrow-function**: Transform function expression with `.bind(this)` to arrow functions:
+- [x] **convert-bind-arrow-function**: Transform function expression with `.bind(this)` to arrow functions:
 
 ```ts
 // from this

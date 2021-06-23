@@ -157,3 +157,15 @@ const b = function() { this };
 const a = () => {};
 const b = function() { this };
 ```
+### convert-bind-arrow-function
+
+Transform function expression with `.bind(this)` to arrow functions:
+
+```ts
+// Input code
+const a = function() {}.bind(this);
+
+// Output code
+const a = () => {};
+
+```

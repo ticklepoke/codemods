@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Convert functions with bind(this) to arrow functions',
+    value: 'convert-bind-arrow-function',
+  },
+  {
     name: 'Convert function expressions to arrow functions while respecting lexical this',
     value: 'convert-function-expression-arrow',
   },
