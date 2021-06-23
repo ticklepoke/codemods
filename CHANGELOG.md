@@ -1,3 +1,11 @@
+# [1.21.0](https://github.com/ticklepoke/codemods/compare/v1.20.0...v1.21.0) (2021-06-23)
+
+
+### Features
+
+* **bind-arrow:** Add implementation ([5b60e57](https://github.com/ticklepoke/codemods/commit/5b60e575154b2c994918e13d066e6977eb8da391))
+* **bind-arrow:** Add plop ([64306bd](https://github.com/ticklepoke/codemods/commit/64306bde3397df4affb832acae5aa1f89a5d7249))
+
 # [1.20.0](https://github.com/ticklepoke/codemods/compare/v1.19.0...v1.20.0) (2021-06-21)
 
 
