@@ -36,7 +36,7 @@ bar(baz) {
 }
 ```
 
-- [ ] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
+- [x] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
 
 ```ts
 // from this
