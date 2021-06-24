@@ -2,15 +2,9 @@ import { API, FileInfo, Options } from 'jscodeshift';
 import { applyMultipleTransforms } from './utils';
 
 /**
- * 1. Check if return statement has a member expression .then()
- * 2. Check if theres a catch block
- *  - Try block: initial member expression + then block
- *  - Callback in then block has to be unwrapped
- * 3. Check if theres a finally block
- * 4. Check for single return of arrow functions => need to expand into a full return statement
- *
  * KIV:
- * - How to check for then chaining?
+ * - How to check for then chaining? => thenthen chaining = resolving nested promises = multiple awaits
+ * - then, then, catch / finally chaining
  * - let x = await ... if x is reassigned in callback, const x = await if x is never reassigned => can reuse an existing transform?
  * - callback has multiple params, need multiple variable declarator
  */
