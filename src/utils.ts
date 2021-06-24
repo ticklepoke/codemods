@@ -28,7 +28,6 @@ export function applyMultipleTransforms<Ctx>(
   const newRoot = j(source);
   const newFirstNode = getFirstNode(newRoot);
   if (firstNode !== newFirstNode) {
-    console.log('here');
     newFirstNode.comments = comments;
   }
   return newRoot.toSource();
