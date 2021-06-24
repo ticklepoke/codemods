@@ -5,8 +5,18 @@ function a() {
   });
 }
 
+function aa() {
+  return b().then(({ a, c }) => {
+    return a + c;
+  });
+}
+
 function b() {
   return c.then((d) => d);
+}
+
+function ba() {
+  return c.then(({ a, b }) => a + b);
 }
 
 function c() {

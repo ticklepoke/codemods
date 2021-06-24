@@ -4,9 +4,19 @@ async function a() {
   return c;
 }
 
+async function aa() {
+  const { a, c } = await b();
+  return a + c;
+}
+
 async function b() {
   const d = await c;
   return d;
+}
+
+async function ba() {
+  const { a, b } = await c;
+  return a + b;
 }
 
 async function c() {
