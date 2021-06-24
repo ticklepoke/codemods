@@ -249,6 +249,9 @@ b = 2;
 ### convert-function-expression-arrow
 
 Transfrom function expressions to arrow functions without violating lexical this. Only converts if this is not used in the function body:
+
+**Improvements**: To preserve async and generator functions
+
 ```ts
 // Input code
 const a = function() {};
@@ -261,6 +264,8 @@ const b = function() { this };
 ### convert-bind-arrow-function
 
 Transform function expression with `.bind(this)` to arrow functions:
+
+**Improvements**: To preserve async and generator functions
 
 ```ts
 // Input code
