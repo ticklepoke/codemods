@@ -1,4 +1,4 @@
-import { API, FileInfo, Options } from 'jscodeshift';
+import { API, Collection, FileInfo, Node, Options } from 'jscodeshift';
 
 export function applyMultipleTransforms<Ctx>(
   file: FileInfo,
@@ -8,6 +8,13 @@ export function applyMultipleTransforms<Ctx>(
   context: Ctx
 ): string {
   let { source } = file;
+  const j = api.jscodeshift;
+  const root = j(source);
+  function getFirstNode(root: Collection<unknown>) {
+    return root.find(j.Program).get('body', 0).node as Node;
+  }
+  const firstNode = getFirstNode(root);
+  const { comments } = firstNode;
 
   transforms.forEach((trf) => {
     if (typeof source === 'undefined') return;
@@ -17,5 +24,12 @@ export function applyMultipleTransforms<Ctx>(
       source = nextSource;
     }
   });
-  return source;
+
+  const newRoot = j(source);
+  const newFirstNode = getFirstNode(newRoot);
+  if (firstNode !== newFirstNode) {
+    console.log('here');
+    newFirstNode.comments = comments;
+  }
+  return newRoot.toSource();
 }
