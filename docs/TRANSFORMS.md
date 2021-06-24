@@ -167,6 +167,8 @@ Transfrom function expressions to arrow functions without violating lexical this
 
 - Does not transform generator functions (arrow functions cannot be generators)
 
+**Improvements**: To preserve async and generator functions
+
 ```ts
 // Input code
 const a = function() {};
@@ -184,6 +186,8 @@ Transform function expression with `.bind(this)` to arrow functions.
 - Preserves async function signatures
 
 - Does not transform generator functions (arrow functions cannot be generators)
+
+**Improvements**: To preserve async and generator functions
 
 ```ts
 // Input code
