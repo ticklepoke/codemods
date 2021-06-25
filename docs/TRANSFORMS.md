@@ -32,6 +32,7 @@ copiedLog();
 // Output code
 // empty
 ```
+
 ### convert-template-literal
 
 Converts template literals without any template elements to string literals
@@ -47,6 +48,7 @@ const a = 'abcde';
 const b = `1234${true}`;
 
 ```
+
 ### convert-object-destructure
 
 Converts variable declarations to object destructure. Also combines object destructures of the same member expression
@@ -88,6 +90,7 @@ function bar() {
     } = otherObj;
 }
 ```
+
 ### convert-object-shorthand
 
 Convert object expressions and object patterns that have the same key and value to shorthand
@@ -105,6 +108,7 @@ const { a } = obj;
 bar({ a });
 
 ```
+
 ### convert-concat-strings
 
 Converts string concatenations to template literals. Unable to handle escaped characters
@@ -119,6 +123,7 @@ let vars = "b"
 `a${vars}c`
 
 ```
+
 ### convert-let-const
 
 Converts variable declarations that are not reassigned from `let` to `const`. Considers shadowed variables as well
@@ -145,11 +150,14 @@ b = 2;
 }
 
 ```
+
 ### convert-function-expression-arrow
 
-Transfrom function expressions to arrow functions without violating lexical this. Only converts if this is not used in the function body:
+Transfrom function expressions to arrow functions without violating lexical this. Only converts if `this` is not used in the function body:
 
-**Improvements**: To preserve async and generator functions
+- Preserves async function signatures
+
+- Does not transform generator functions (arrow functions cannot be generators)
 
 ```ts
 // Input code
@@ -160,11 +168,14 @@ const b = function() { this };
 const a = () => {};
 const b = function() { this };
 ```
+
 ### convert-bind-arrow-function
 
-Transform function expression with `.bind(this)` to arrow functions:
+Transform function expression with `.bind(this)` to arrow functions.
 
-**Improvements**: To preserve async and generator functions
+- Preserves async function signatures
+
+- Does not transform generator functions (arrow functions cannot be generators)
 
 ```ts
 // Input code
