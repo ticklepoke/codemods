@@ -1,3 +1,10 @@
+## [1.21.2](https://github.com/ticklepoke/codemods/compare/v1.21.1...v1.21.2) (2021-06-25)
+
+
+### Bug Fixes
+
+* **let-const:** Add update expression support ([6560fb0](https://github.com/ticklepoke/codemods/commit/6560fb07fbf7edc71302db740833d6bc4a391d66))
+
 ## [1.21.1](https://github.com/ticklepoke/codemods/compare/v1.21.0...v1.21.1) (2021-06-25)
 
 
