@@ -231,7 +231,11 @@ Converts variable declarations that are not reassigned from `let` to `const`.
 
 - Considers shadowed variables
 
-- Considers UpdateExressions (`a++`)
+- Considers UpdateExpressions (`a++`)
+
+**Improvements**: To split object patterns into separate variable declarations if one of the variable is reassigned. Otherwise, change the entire declarator to const: `const { a, b } = fn()`.
+
+**Improvements**: Support for array patterns: `const [ a ] = fn()`
 
 ```ts
 // Input code
