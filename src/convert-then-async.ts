@@ -5,6 +5,7 @@ import { applyMultipleTransforms } from './utils';
  * KIV:
  * - How to check for then chaining? => thenthen chaining = resolving nested promises = multiple awaits
  * - then, then, catch / finally chaining
+ * - then + finally, without catch
  * - let x = await ... if x is reassigned in callback, const x = await if x is never reassigned => can reuse an existing transform?
  * - callback has multiple params, need multiple variable declarator
  */
@@ -22,11 +23,12 @@ function transformFunctionDeclaration(props: { file: FileInfo; api: API; options
   return j(file.source)
     .find(j.FunctionDeclaration)
     .forEach((path) => {
-      const { body, id, params } = path.value;
-      const newBody = createSingleThenBody(body, j);
+      const { body, id, params, generator: isGenerator } = path.value;
+      const newBody = createBody(body, j);
       if (newBody) {
         const newFn = j.functionDeclaration(id, params, newBody);
         newFn.async = true;
+        newFn.generator = isGenerator;
         j(path).replaceWith(newFn);
       }
     })
@@ -41,11 +43,12 @@ function transformFunctionExpression(props: { file: FileInfo; api: API; options:
   return j(file.source)
     .find(j.FunctionExpression)
     .forEach((path) => {
-      const { body, id, params } = path.value;
-      const newBody = createSingleThenBody(body, j);
+      const { body, id, params, generator: isGenerator } = path.value;
+      const newBody = createBody(body, j);
       if (newBody) {
         const newFn = j.functionExpression(id, params, newBody);
         newFn.async = true;
+        newFn.generator = isGenerator;
         j(path).replaceWith(newFn);
       }
     })
@@ -62,18 +65,20 @@ function transformArrowFunction(props: { file: FileInfo; api: API; options: Opti
     .forEach((path) => {
       const { body, params } = path.value;
       if (body.type === 'BlockStatement') {
-        const newBody = createSingleThenBody(body, j);
+        const newBody = createBody(body, j);
         if (newBody) {
           const newFn = j.arrowFunctionExpression(params, newBody);
           newFn.async = true;
           j(path).replaceWith(newFn);
         }
+      } else if (body.type === 'CallExpression') {
+        // TODO: () => a.then()....
       }
     })
     .toSource();
 }
 
-function createSingleThenBody(body: BlockStatement, j: JSCodeshift) {
+function createBody(body: BlockStatement, j: JSCodeshift) {
   const finalStatement = body.body[body.body.length - 1];
   if (
     finalStatement.type === 'ReturnStatement' &&
