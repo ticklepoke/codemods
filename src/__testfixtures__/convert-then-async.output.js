@@ -45,7 +45,7 @@ async function e() {
   a + b;
 }
 
-const f = async function () {
+const f = async function() {
   const a = await g();
   return a;
 };
