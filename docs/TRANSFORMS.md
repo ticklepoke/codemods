@@ -126,7 +126,11 @@ let vars = "b"
 
 ### convert-let-const
 
-Converts variable declarations that are not reassigned from `let` to `const`. Considers shadowed variables as well
+Converts variable declarations that are not reassigned from `let` to `const`. 
+
+- Considers shadowed variables
+
+- Considers UpdateExressions (`a++`)
 
 ```ts
 // Input code
