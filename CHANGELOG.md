@@ -1,3 +1,11 @@
+## [1.21.1](https://github.com/ticklepoke/codemods/compare/v1.21.0...v1.21.1) (2021-06-25)
+
+
+### Bug Fixes
+
+* **bind-arrow:** Add generator and async support ([bf80b45](https://github.com/ticklepoke/codemods/commit/bf80b45967f5ed8d212b4d467c69d12e65cb73d8))
+* **expression-arrow:** Add generator and async support ([8656055](https://github.com/ticklepoke/codemods/commit/8656055ffa23598514581c300e05e144f52d9010))
+
 # [1.21.0](https://github.com/ticklepoke/codemods/compare/v1.20.0...v1.21.0) (2021-06-23)
 
 
