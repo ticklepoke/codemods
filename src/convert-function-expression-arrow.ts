@@ -7,7 +7,10 @@ export default function transform(file: FileInfo, api: API): string {
     .find(j.FunctionExpression)
     .filter((path) => j(path).find(j.ThisExpression).size() === 0)
     .forEach((path) => {
-      const { params, body } = path.value;
+      const { params, body, async: isAsync, generator: isGenerator } = path.value;
+      if (isGenerator) {
+        return;
+      }
 
       const singleExpression = body.body.length === 1 && body.body[0].type === 'ReturnStatement';
 
@@ -19,7 +22,9 @@ export default function transform(file: FileInfo, api: API): string {
         newBody = body;
       }
 
-      j(path).replaceWith(j.arrowFunctionExpression(params, newBody, singleExpression));
+      const newFn = j.arrowFunctionExpression(params, newBody, singleExpression);
+      newFn.async = isAsync;
+      j(path).replaceWith(newFn);
     })
     .toSource();
 }
