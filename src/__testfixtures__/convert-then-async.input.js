@@ -52,3 +52,7 @@ const f = function () {
 const g = () => {
   return h().then((a) => a);
 };
+
+const h = () => h().then((a) => a);
+
+const i = () => i.then((a) => a);

@@ -45,12 +45,22 @@ async function e() {
   a + b;
 }
 
-const f = async function() {
+const f = async function () {
   const a = await g();
   return a;
 };
 
 const g = async () => {
   const a = await h();
+  return a;
+};
+
+const h = async () => {
+  const a = await h();
+  return a;
+};
+
+const i = async () => {
+  const a = await i();
   return a;
 };
