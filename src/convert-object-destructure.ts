@@ -1,16 +1,17 @@
 import { API, BlockStatement, FileInfo, Options, VariableDeclaration, VariableDeclarator } from 'jscodeshift';
+import { MultiTransformParams } from './types';
 import { applyMultipleTransforms } from './utils';
 
 export default function transform(file: FileInfo, api: API, options: Options): string {
   const transforms = [convertDeclarationsToDestructure, removeDuplicateDeclarations];
-  return applyMultipleTransforms<undefined>(file, api, transforms, options, undefined);
+  return applyMultipleTransforms(file, api, transforms, options, null);
 }
 
 type Store = Map<string, { key: string; value: string }[]>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StatementKind = BlockStatement | VariableDeclaration | any;
 
-function convertDeclarationsToDestructure(props: { file: FileInfo; api: API; options: Options }): string {
+function convertDeclarationsToDestructure(props: MultiTransformParams): string {
   const { file, api } = props;
 
   const j = api.jscodeshift;
@@ -35,7 +36,7 @@ function convertDeclarationsToDestructure(props: { file: FileInfo; api: API; opt
     });
 }
 
-function removeDuplicateDeclarations(props: { file: FileInfo; api: API; options: Options }): string {
+function removeDuplicateDeclarations(props: MultiTransformParams): string {
   const { file, api } = props;
 
   const j = api.jscodeshift;
