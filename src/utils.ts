@@ -1,9 +1,10 @@
 import { API, Collection, FileInfo, Node, Options } from 'jscodeshift';
+import { MultiTransformParams } from './types';
 
 export function applyMultipleTransforms<Ctx>(
   file: FileInfo,
   api: API,
-  transforms: ((props: { file: FileInfo; api: API; options: Options; context: Ctx }) => string)[],
+  transforms: ((props: MultiTransformParams<Ctx>) => string)[],
   options: Options,
   context: Ctx
 ): string {

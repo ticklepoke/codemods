@@ -1,4 +1,5 @@
 import { API, BlockStatement, FileInfo, JSCodeshift, MemberExpression, Options } from 'jscodeshift';
+import { MultiTransformParams } from './types';
 import { applyMultipleTransforms } from './utils';
 
 /**
@@ -12,10 +13,10 @@ import { applyMultipleTransforms } from './utils';
 export default function transform(file: FileInfo, api: API, options: Options): string {
   const transforms = [transformFunctionDeclaration, transformFunctionExpression, transformArrowFunction];
 
-  return applyMultipleTransforms(file, api, transforms, options, undefined);
+  return applyMultipleTransforms(file, api, transforms, options, null);
 }
 
-function transformFunctionDeclaration(props: { file: FileInfo; api: API; options: Options }): string {
+function transformFunctionDeclaration(props: MultiTransformParams): string {
   const { file, api } = props;
 
   const j = api.jscodeshift;
@@ -35,7 +36,7 @@ function transformFunctionDeclaration(props: { file: FileInfo; api: API; options
     .toSource();
 }
 
-function transformFunctionExpression(props: { file: FileInfo; api: API; options: Options }): string {
+function transformFunctionExpression(props: MultiTransformParams): string {
   const { file, api } = props;
 
   const j = api.jscodeshift;
@@ -55,7 +56,7 @@ function transformFunctionExpression(props: { file: FileInfo; api: API; options:
     .toSource();
 }
 
-function transformArrowFunction(props: { file: FileInfo; api: API; options: Options }): string {
+function transformArrowFunction(props: MultiTransformParams): string {
   const { file, api } = props;
 
   const j = api.jscodeshift;

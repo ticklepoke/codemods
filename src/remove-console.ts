@@ -1,4 +1,5 @@
 import { API, FileInfo, Identifier, MemberExpression, Options } from 'jscodeshift';
+import { MultiTransformParams } from './types';
 import { applyMultipleTransforms } from './utils';
 
 export interface Context {
@@ -12,7 +13,7 @@ export default function transform(file: FileInfo, api: API, options: Options): s
   return applyMultipleTransforms<Context>(file, api, transforms, options, { destructuredVariables });
 }
 
-function removeCallExpressionConsole(props: { file: FileInfo; api: API; options: Options; context: Context }): string {
+function removeCallExpressionConsole(props: MultiTransformParams<Context>): string {
   const {
     file,
     api,
@@ -44,7 +45,7 @@ function removeCallExpressionConsole(props: { file: FileInfo; api: API; options:
     .toSource();
 }
 
-function removeDestructuredConsoleDecl(props: { file: FileInfo; api: API; context: Context }): string {
+function removeDestructuredConsoleDecl(props: MultiTransformParams<Context>): string {
   const {
     file,
     api,
@@ -85,7 +86,7 @@ function removeDestructuredConsoleDecl(props: { file: FileInfo; api: API; contex
     .toSource();
 }
 
-function removeCopiedConsoleDecl(props: { file: FileInfo; api: API; context: Context }): string {
+function removeCopiedConsoleDecl(props: MultiTransformParams<Context>): string {
   const {
     file,
     api,
