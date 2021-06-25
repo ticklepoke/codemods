@@ -9,6 +9,13 @@ async function aa() {
   return a + c;
 }
 
+async function aaa() {
+  let c = await b();
+  c++;
+  1 + 1;
+  return c;
+}
+
 async function b() {
   const d = await c;
   return d;
