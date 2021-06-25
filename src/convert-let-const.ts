@@ -7,6 +7,7 @@ import {
   FunctionDeclaration,
   VariableDeclaration,
 } from 'jscodeshift';
+import { MultiTransformParams } from './types';
 
 type Store = Map<string, number[]>;
 
@@ -23,6 +24,11 @@ export default function transform(file: FileInfo, api: API): string {
       path.value.body = newBody;
     })
     .toSource();
+}
+
+export function letConstWrapper(props: MultiTransformParams): string {
+  const { file, api } = props;
+  return transform(file, api);
 }
 
 function handleBody(body: StatementKind[], depth: number, store: Store): StatementKind[] {
