@@ -11,6 +11,14 @@ function aa() {
   });
 }
 
+function aaa() {
+  return b().then((c) => {
+    c++;
+    1 + 1;
+    return c;
+  });
+}
+
 function b() {
   return c.then((d) => d);
 }
