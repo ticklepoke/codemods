@@ -1,4 +1,5 @@
 import { API, BlockStatement, FileInfo, JSCodeshift, MemberExpression, Options } from 'jscodeshift';
+import { letConstWrapper } from './convert-let-const';
 import { MultiTransformParams } from './types';
 import { applyMultipleTransforms } from './utils';
 
@@ -11,7 +12,12 @@ import { applyMultipleTransforms } from './utils';
  * - callback has multiple params, need multiple variable declarator
  */
 export default function transform(file: FileInfo, api: API, options: Options): string {
-  const transforms = [transformFunctionDeclaration, transformFunctionExpression, transformArrowFunction];
+  const transforms = [
+    transformFunctionDeclaration,
+    transformFunctionExpression,
+    transformArrowFunction,
+    letConstWrapper,
+  ];
 
   return applyMultipleTransforms(file, api, transforms, options, null);
 }
