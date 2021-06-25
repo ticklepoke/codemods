@@ -75,6 +75,9 @@ function handleExpressionStatement(node: ExpressionStatement, depth: number, sto
   if (expression.type === 'AssignmentExpression' && expression.left.type === 'Identifier') {
     store.get(expression.left.name)?.pop();
   }
+  if (expression.type === 'UpdateExpression' && expression.argument.type === 'Identifier') {
+    store.get(expression.argument.name)?.pop();
+  }
   return node;
 }
 
