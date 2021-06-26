@@ -33,3 +33,11 @@ export function applyMultipleTransforms<Ctx>(
   }
   return newRoot.toSource();
 }
+
+export function peekLast<T>(arr: Array<T>): T {
+  return peekLastNth(arr, 0);
+}
+
+export function peekLastNth<T>(arr: Array<T>, n: number): T {
+  return arr[arr.length - 1 - n];
+}
