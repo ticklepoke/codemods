@@ -174,7 +174,7 @@ function createBody(body: BlockStatement | CallExpression, j: JSCodeshift) {
       const N = body.body.length - 1;
       let i;
 
-      for (i = N; i > 0; i--) {
+      for (i = 0; i < N; i++) {
         if (body.body[i].type === 'VariableDeclaration') {
           break;
         }
@@ -215,7 +215,20 @@ function createBody(body: BlockStatement | CallExpression, j: JSCodeshift) {
       node.callee.object.callee.property.name === 'then'
     ) {
       // TODO: if final statement is a return of a previous then block, need to pop off
-      console.log('chain');
+      const prevThen = body.body.pop();
+      if (
+        prevThen?.type === 'ReturnStatement' &&
+        prevThen.argument?.type === 'Identifier' &&
+        node.arguments.length === 1 &&
+        (node.arguments[0].type === 'ArrowFunctionExpression' || node.arguments[0].type === 'FunctionExpression') &&
+        node.arguments[0].params[0].type === 'Identifier'
+      ) {
+        const nextAwait = j.variableDeclaration('let', [
+          j.variableDeclarator(node.arguments[0].params[0], j.awaitExpression(prevThen.argument)),
+        ]);
+        body.body.push(nextAwait);
+        body.body.push(j.returnStatement(node.arguments[0].params[0]));
+      }
     } else {
       const { arguments: callbackArgs } = node;
       if (
