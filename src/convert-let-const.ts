@@ -5,6 +5,7 @@ import {
   ExpressionStatement,
   FileInfo,
   FunctionDeclaration,
+  TryStatement,
   VariableDeclaration,
 } from 'jscodeshift';
 import { MultiTransformParams } from './types';
@@ -42,6 +43,8 @@ function handleBody(body: StatementKind[], depth: number, store: Store): Stateme
         return handleExpressionStatement(node, depth, store);
       case 'FunctionDeclaration':
         return handleFunctionBlock(node, depth, store);
+      case 'TryStatement':
+        return handleTryBlock(node, depth, store);
       default:
         return node;
     }
@@ -52,6 +55,9 @@ function handleVariableDeclaration(node: VariableDeclaration, depth: number, sto
   const { declarations } = node;
   declarations.forEach((decl) => {
     if (decl.type === 'VariableDeclarator') {
+      if (decl.init?.type === 'FunctionExpression') {
+        decl.init.body = handleBlock(decl.init.body, depth + 1, store);
+      }
       if (decl.id.type === 'Identifier') {
         if (store.has(decl.id.name)) {
           store.get(decl.id.name)?.push(depth);
@@ -59,16 +65,12 @@ function handleVariableDeclaration(node: VariableDeclaration, depth: number, sto
           store.set(decl.id.name, [depth]);
         }
       }
-      // TODO: handle arrow functions
       if (decl.init?.type === 'ArrowFunctionExpression') {
         const {
           init: { body },
         } = decl;
         if (body.type === 'BlockStatement') {
           decl.init.body = handleBlock(body, depth + 1, store);
-        }
-        if (body.type === 'AssignmentExpression') {
-          // decl.init.body = handleExpressionStatement(decl.init, depth + 1, store);
         }
       }
     }
@@ -93,13 +95,18 @@ function handleBlock(node: BlockStatement, depth: number, store: Store): BlockSt
   return node;
 }
 
+function handleTryBlock(node: TryStatement, depth: number, store: Store): TryStatement {
+  node.block = handleBlock(node.block, depth, store);
+  return node;
+}
+
 function handleFunctionBlock(node: FunctionDeclaration, depth: number, store: Store): FunctionDeclaration {
   node.body = handleBlock(node.body, depth, store);
   return node;
 }
 
 function convertLetConst(body: StatementKind[], depth: number, store: Store): StatementKind[] {
-  // console.log(store);
+  // console.log(store)
   body.forEach((stmt) => {
     if (stmt.type === 'VariableDeclaration') {
       stmt.declarations.forEach((decl) => {

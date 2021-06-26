@@ -82,6 +82,6 @@ const k = async () => {
     const a = await k;
     return a;
   } catch (err) {
-    console.error(err);
+    return console.error(err);
   }
 };

@@ -67,52 +67,36 @@ function transformArrowFunction(props: MultiTransformParams): string {
     .find(j.ArrowFunctionExpression)
     .forEach((path) => {
       const { body, params } = path.value;
-      if (body.type === 'BlockStatement') {
+      if (body.type === 'BlockStatement' || body.type === 'CallExpression') {
         const newBody = createBody(body, j);
         if (newBody) {
           const newFn = j.arrowFunctionExpression(params, newBody);
           newFn.async = true;
           j(path).replaceWith(newFn);
         }
-      } else if (body.type === 'CallExpression' && body.callee.type === 'MemberExpression') {
-        if (
-          body.callee.property.type === 'Identifier' &&
-          body.callee.property.name === 'then' &&
-          body.arguments.length === 1 &&
-          (body.arguments[0].type === 'FunctionExpression' || body.arguments[0].type === 'ArrowFunctionExpression') &&
-          body.arguments[0].params.length === 1 &&
-          body.arguments[0].params[0].type === 'Identifier'
-        ) {
-          const newBody = j.blockStatement([
-            j.variableDeclaration('const', [
-              j.variableDeclarator(body.arguments[0].params[0], j.awaitExpression(body.callee.object)),
-            ]),
-            j.returnStatement(body.arguments[0].params[0]),
-          ]);
-          const newFn = j.arrowFunctionExpression(params, newBody);
-          newFn.async = true;
-          j(path).replaceWith(newFn);
-        } else {
-          // TODO: catch / finally block for arrow functions
-          console.log('TODO: catch / finally not implemented');
-        }
       }
     })
     .toSource();
 }
 
-function createBody(body: BlockStatement, j: JSCodeshift) {
-  const finalStatement = peekLast(body.body);
-  if (
-    finalStatement.type === 'ReturnStatement' &&
-    finalStatement.argument &&
-    finalStatement.argument.type === 'CallExpression' &&
-    finalStatement.argument.callee.type === 'MemberExpression' &&
-    finalStatement.argument.callee.property.type === 'Identifier'
-  ) {
-    body.body.pop();
-    traverse(finalStatement.argument, body);
-    return body;
+function createBody(body: BlockStatement | CallExpression, j: JSCodeshift) {
+  if (body.type === 'BlockStatement') {
+    const finalStatement = peekLast(body.body);
+    if (
+      finalStatement.type === 'ReturnStatement' &&
+      finalStatement.argument &&
+      finalStatement.argument.type === 'CallExpression' &&
+      finalStatement.argument.callee.type === 'MemberExpression' &&
+      finalStatement.argument.callee.property.type === 'Identifier'
+    ) {
+      body.body.pop();
+      traverse(finalStatement.argument, body);
+      return body;
+    }
+  } else {
+    const newBody = j.blockStatement([]);
+    traverse(body, newBody);
+    return newBody;
   }
 
   function traverse(currentNode: CallExpression, body: BlockStatement) {
@@ -239,7 +223,7 @@ function createBody(body: BlockStatement, j: JSCodeshift) {
         (callbackArgs[0].type === 'FunctionExpression' || callbackArgs[0].type === 'ArrowFunctionExpression')
       ) {
         body.body.push(
-          j.variableDeclaration('const', [
+          j.variableDeclaration('let', [
             j.variableDeclarator(callbackArgs[0].params[0], j.awaitExpression(node.callee.object)),
           ])
         );
