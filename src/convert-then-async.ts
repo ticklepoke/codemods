@@ -78,8 +78,29 @@ function transformArrowFunction(props: MultiTransformParams): string {
           newFn.async = true;
           j(path).replaceWith(newFn);
         }
-      } else if (body.type === 'CallExpression') {
-        // TODO: () => a.then()....
+      } else if (body.type === 'CallExpression' && body.callee.type === 'MemberExpression') {
+        // Handle single then case
+        if (
+          body.callee.property.type === 'Identifier' &&
+          body.callee.property.name === 'then' &&
+          body.arguments.length === 1 &&
+          (body.arguments[0].type === 'FunctionExpression' || body.arguments[0].type === 'ArrowFunctionExpression') &&
+          body.arguments[0].params.length === 1 &&
+          body.arguments[0].params[0].type === 'Identifier'
+        ) {
+          console.log('call');
+          const newBody = j.blockStatement([
+            j.variableDeclaration('const', [
+              j.variableDeclarator(body.arguments[0].params[0], j.awaitExpression(body.callee.object)),
+            ]),
+            j.returnStatement(body.arguments[0].params[0]),
+          ]);
+          const newFn = j.arrowFunctionExpression(params, newBody);
+          newFn.async = true;
+          j(path).replaceWith(newFn);
+        } else {
+          console.log('TODO: catch / finally not implemented');
+        }
       }
     })
     .toSource();
