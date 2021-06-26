@@ -13,7 +13,6 @@ function aa() {
 
 function aaa() {
   return b().then((c) => {
-    c++;
     1 + 1;
     return c;
   });
@@ -38,6 +37,19 @@ function c() {
 function d() {
   return e
     .then((f) => f)
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      1 + 1;
+      return 1;
+    });
+}
+
+function dd() {
+  return e
+    .then((f) => f)
+    .then((g) => g)
     .catch((err) => {
       console.error(err);
     })

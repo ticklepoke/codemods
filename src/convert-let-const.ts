@@ -5,6 +5,7 @@ import {
   ExpressionStatement,
   FileInfo,
   FunctionDeclaration,
+  Property,
   TryStatement,
   VariableDeclaration,
 } from 'jscodeshift';
@@ -55,15 +56,25 @@ function handleVariableDeclaration(node: VariableDeclaration, depth: number, sto
   const { declarations } = node;
   declarations.forEach((decl) => {
     if (decl.type === 'VariableDeclarator') {
-      if (decl.init?.type === 'FunctionExpression') {
-        decl.init.body = handleBlock(decl.init.body, depth + 1, store);
-      }
       if (decl.id.type === 'Identifier') {
         if (store.has(decl.id.name)) {
           store.get(decl.id.name)?.push(depth);
         } else {
           store.set(decl.id.name, [depth]);
         }
+      } else if (decl.id.type === 'ObjectPattern') {
+        decl.id.properties.forEach((prop) => {
+          if (prop.type === 'Property' && prop.key.type === 'Identifier' && prop.shorthand) {
+            if (store.has(prop.key.name)) {
+              store.get(prop.key.name)?.push(depth);
+            } else {
+              store.set(prop.key.name, [depth]);
+            }
+          }
+        });
+      }
+      if (decl.init?.type === 'FunctionExpression') {
+        decl.init.body = handleBlock(decl.init.body, depth + 1, store);
       }
       if (decl.init?.type === 'ArrowFunctionExpression') {
         const {
@@ -106,13 +117,26 @@ function handleFunctionBlock(node: FunctionDeclaration, depth: number, store: St
 }
 
 function convertLetConst(body: StatementKind[], depth: number, store: Store): StatementKind[] {
-  // console.log(store)
   body.forEach((stmt) => {
     if (stmt.type === 'VariableDeclaration') {
       stmt.declarations.forEach((decl) => {
-        if (decl.type === 'VariableDeclarator' && decl.id.type === 'Identifier') {
-          if (store.get(decl.id.name)?.includes(depth)) {
-            stmt.kind = 'const';
+        if (decl.type === 'VariableDeclarator') {
+          if (decl.id.type === 'Identifier') {
+            if (store.get(decl.id.name)?.includes(depth)) {
+              stmt.kind = 'const';
+            }
+          } else if (decl.id.type === 'ObjectPattern') {
+            const inStore = decl.id.properties.every((prop) => {
+              if (prop.type === 'Property' && prop.key.type === 'Identifier' && prop.shorthand) {
+                if (store.get(prop.key.name)?.includes(depth)) {
+                  return true;
+                }
+              }
+              return false;
+            });
+            if (inStore) {
+              stmt.kind = 'const';
+            }
           }
         }
       });

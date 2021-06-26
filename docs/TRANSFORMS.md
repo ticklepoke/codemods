@@ -128,11 +128,11 @@ let vars = "b"
 
 Converts variable declarations that are not reassigned from `let` to `const`. 
 
-- Considers shadowed variables
+- Supports shadowed variables
 
-- Considers UpdateExpressions (`a++`)
+- Supports UpdateExpressions (`a++`)
 
-**Improvements**: To split object patterns into separate variable declarations if one of the variable is reassigned. Otherwise, change the entire declarator to const: `const { a, b } = fn()`.
+- Supports object patterns `const { a, b } = ...`. Entire object is changed to const only if all properties are not reassigned.
 
 **Improvements**: Support for array patterns: `const [ a ] = fn()`
 
@@ -196,6 +196,14 @@ const a = () => {};
 ### convert-then-async
 
 Convert `.then()` promises to `async / await` with support for `catch` and `finally` blocks
+
+- Supports `.then()` chaining
+
+- Only supports promises in a return statement
+
+- Only supports single param callbacks `.then(a => ...)` or `.then(({a, b}) => ...)`. Multi params `.then((a, b) => ...)` and `.then(({a, b}, c) => ...)` are not allowed
+
+**Improvements**: Support for `.then().finally()` without a catch clause
 
 ```ts
 // Input code

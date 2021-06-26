@@ -10,8 +10,7 @@ async function aa() {
 }
 
 async function aaa() {
-  let c = await b();
-  c++;
+  const c = await b();
   1 + 1;
   return c;
 }
@@ -39,6 +38,19 @@ async function d() {
   try {
     const f = await e;
     return f;
+  } catch (err) {
+    console.error(err);
+  } finally {
+    1 + 1;
+    return 1;
+  }
+}
+
+async function dd() {
+  try {
+    const f = await e;
+    const g = await f;
+    return g;
   } catch (err) {
     console.error(err);
   } finally {
