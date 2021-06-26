@@ -1,3 +1,24 @@
+# [1.22.0](https://github.com/ticklepoke/codemods/compare/v1.21.2...v1.22.0) (2021-06-26)
+
+
+### Bug Fixes
+
+* **bind-arrow:** Remove dupe tests ([3db16a1](https://github.com/ticklepoke/codemods/commit/3db16a1b8e3f9514ad6bc0a30962d5e01b873f9f))
+
+
+### Features
+
+* **then-async:** Add generator support ([05b5d42](https://github.com/ticklepoke/codemods/commit/05b5d4277595b4b576a767b59c2daf1c6b527c20))
+* **then-async:** Add recursion support ([bd6e958](https://github.com/ticklepoke/codemods/commit/bd6e958b1883b3ac549ef1c12324aea45d52940c))
+* **then-async:** Add support for catch block ([ba1771f](https://github.com/ticklepoke/codemods/commit/ba1771f6be1046db17af2fbee4d5982e346b8d3f))
+* **then-async:** Basic then() support ([c1bd005](https://github.com/ticklepoke/codemods/commit/c1bd005dd2cef72c3f249299a77212e254382c8a))
+* **then-async:** let const support ([1a0b766](https://github.com/ticklepoke/codemods/commit/1a0b7666528b18308efaa063403ab61fe28d4cf7))
+* **then-async:** let-const behaviour ([355252e](https://github.com/ticklepoke/codemods/commit/355252ea04c55472dd5eaf18941baead86fcbd7d))
+* **then-async :** Add arrow function support ([5222c8f](https://github.com/ticklepoke/codemods/commit/5222c8f6978b330cbcdc4146dde13d83b44146d0))
+* **utils:** Add array utils ([f91e504](https://github.com/ticklepoke/codemods/commit/f91e5049be57d92a62e86556633d882856d40906))
+* **utils:** Preserve top level comments ([45a0d79](https://github.com/ticklepoke/codemods/commit/45a0d794e68fe9dabd5962d763df839662faf1c2))
+* **utils:** Remove console ([9d43db0](https://github.com/ticklepoke/codemods/commit/9d43db041ade98b18ab047c50ac13554051111ed))
+
 ## [1.21.2](https://github.com/ticklepoke/codemods/compare/v1.21.1...v1.21.2) (2021-06-25)
 
 
