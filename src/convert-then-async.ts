@@ -1,14 +1,10 @@
-import { API, BlockStatement, FileInfo, JSCodeshift, MemberExpression, Options } from 'jscodeshift';
+import { API, BlockStatement, CallExpression, FileInfo, JSCodeshift, Options, TryStatement } from 'jscodeshift';
 import { letConstWrapper } from './convert-let-const';
 import { MultiTransformParams } from './types';
-import { applyMultipleTransforms } from './utils';
+import { applyMultipleTransforms, peekLast } from './utils';
 
 /**
  * KIV:
- * - How to check for then chaining? => thenthen chaining = resolving nested promises = multiple awaits
- * - then, then, catch / finally chaining
- * - then + finally, without catch
- * - let x = await ... if x is reassigned in callback, const x = await if x is never reassigned => can reuse an existing transform?
  * - callback has multiple params, need multiple variable declarator
  */
 export default function transform(file: FileInfo, api: API, options: Options): string {
@@ -79,7 +75,6 @@ function transformArrowFunction(props: MultiTransformParams): string {
           j(path).replaceWith(newFn);
         }
       } else if (body.type === 'CallExpression' && body.callee.type === 'MemberExpression') {
-        // Handle single then case
         if (
           body.callee.property.type === 'Identifier' &&
           body.callee.property.name === 'then' &&
@@ -88,7 +83,6 @@ function transformArrowFunction(props: MultiTransformParams): string {
           body.arguments[0].params.length === 1 &&
           body.arguments[0].params[0].type === 'Identifier'
         ) {
-          console.log('call');
           const newBody = j.blockStatement([
             j.variableDeclaration('const', [
               j.variableDeclarator(body.arguments[0].params[0], j.awaitExpression(body.callee.object)),
@@ -99,6 +93,7 @@ function transformArrowFunction(props: MultiTransformParams): string {
           newFn.async = true;
           j(path).replaceWith(newFn);
         } else {
+          // TODO: catch / finally block for arrow functions
           console.log('TODO: catch / finally not implemented');
         }
       }
@@ -107,7 +102,7 @@ function transformArrowFunction(props: MultiTransformParams): string {
 }
 
 function createBody(body: BlockStatement, j: JSCodeshift) {
-  const finalStatement = body.body[body.body.length - 1];
+  const finalStatement = peekLast(body.body);
   if (
     finalStatement.type === 'ReturnStatement' &&
     finalStatement.argument &&
@@ -115,65 +110,145 @@ function createBody(body: BlockStatement, j: JSCodeshift) {
     finalStatement.argument.callee.type === 'MemberExpression' &&
     finalStatement.argument.callee.property.type === 'Identifier'
   ) {
-    const {
-      argument: {
-        callee: { property: finalProperty, object },
-        arguments: returnArgs,
-      },
-    } = finalStatement;
+    body.body.pop();
+    traverse(finalStatement.argument, body);
+    return body;
+  }
 
+  function traverse(currentNode: CallExpression, body: BlockStatement) {
+    const { callee } = currentNode;
+
+    if (callee.type !== 'MemberExpression' || callee.property.type !== 'Identifier') {
+      return;
+    }
+
+    if (callee.object.type === 'CallExpression') {
+      switch (callee.property.name) {
+        case 'finally':
+          traverse(callee.object, body);
+          handleFinally(currentNode, body);
+          return;
+
+        case 'catch':
+          traverse(callee.object, body);
+          handleCatch(currentNode, body);
+          return;
+
+        case 'then':
+          traverse(callee.object, body);
+          handleThen(currentNode, body);
+          return;
+
+        default:
+          console.log('Unsupported syntax');
+          return;
+      }
+    } else if (callee.object.type === 'Identifier') {
+      handleThen(currentNode, body);
+    }
+  }
+
+  function handleFinally(node: CallExpression, body: BlockStatement) {
+    if (node.callee.type !== 'MemberExpression') {
+      return;
+    }
+
+    if (node.callee.property.type !== 'Identifier') {
+      return;
+    }
+
+    if (node.arguments.length !== 1) {
+      return;
+    }
+
+    if (node.arguments[0].type !== 'ArrowFunctionExpression' && node.arguments[0].type !== 'FunctionExpression') {
+      return;
+    }
+
+    const finallyFn = node.arguments[0];
+
+    // If there is currently a try/catch
+    if (peekLast(body.body).type === 'TryStatement') {
+      const tryStatement = peekLast(body.body) as TryStatement;
+      if (finallyFn.body.type === 'BlockStatement') {
+        tryStatement.finalizer = j.blockStatement(finallyFn.body.body);
+      } else {
+        tryStatement.finalizer = j.blockStatement([j.returnStatement(finallyFn.body)]);
+      }
+    } else {
+      // TODO: only a then block, need to create a new try/finally
+    }
+  }
+
+  function handleCatch(node: CallExpression, body: BlockStatement) {
     if (
-      returnArgs.length === 1 &&
-      (returnArgs[0].type === 'FunctionExpression' || returnArgs[0].type === 'ArrowFunctionExpression')
+      node.arguments.length === 1 &&
+      (node.arguments[0].type === 'ArrowFunctionExpression' || node.arguments[0].type === 'FunctionExpression') &&
+      node.arguments[0].params.length === 1
     ) {
-      // TODO: only assuming single then for now
-      body.body.pop();
-      if (finalProperty.name === 'then') {
-        // Add a variable declarator for the await
+      const catchFn = node.arguments[0];
+      const N = body.body.length - 1;
+      let i;
+
+      for (i = N; i > 0; i--) {
+        if (body.body[i].type === 'VariableDeclaration') {
+          break;
+        }
+      }
+
+      const tryBody = j.blockStatement(body.body.slice(i));
+      const catchBody = j.blockStatement([]);
+      if (catchFn.body.type === 'BlockStatement') {
+        catchBody.body.push(...catchFn.body.body);
+      } else {
+        catchBody.body.push(j.returnStatement(catchFn.body));
+      }
+
+      body.body = body.body.slice(0, i);
+      body.body.push(
+        j.tryStatement(
+          tryBody,
+          j.catchClause(
+            // catch params
+            catchFn.params[0],
+            null,
+            catchBody
+          )
+        )
+      );
+      return;
+    }
+  }
+
+  function handleThen(node: CallExpression, body: BlockStatement) {
+    if (node.callee.type !== 'MemberExpression') {
+      return;
+    }
+    if (
+      node.callee.object.type === 'CallExpression' &&
+      node.callee.object.callee.type === 'MemberExpression' &&
+      node.callee.object.callee.property.type === 'Identifier' &&
+      node.callee.object.callee.property.name === 'then'
+    ) {
+      // TODO: if final statement is a return of a previous then block, need to pop off
+      console.log('chain');
+    } else {
+      const { arguments: callbackArgs } = node;
+      if (
+        callbackArgs.length === 1 &&
+        (callbackArgs[0].type === 'FunctionExpression' || callbackArgs[0].type === 'ArrowFunctionExpression')
+      ) {
         body.body.push(
-          j.variableDeclaration('const', [j.variableDeclarator(returnArgs[0].params[0], j.awaitExpression(object))])
+          j.variableDeclaration('const', [
+            j.variableDeclarator(callbackArgs[0].params[0], j.awaitExpression(node.callee.object)),
+          ])
         );
-        // push the remaining then callback
-        if (returnArgs[0].body.type === 'BlockStatement') {
-          body.body.push(...returnArgs[0].body.body);
+        if (callbackArgs[0].body.type === 'BlockStatement') {
+          body.body.push(...callbackArgs[0].body.body);
         } else {
-          body.body.push(j.returnStatement(returnArgs[0].body));
+          body.body.push(j.returnStatement(callbackArgs[0].body));
         }
-
-        return body;
-      } else if (finalProperty.name === 'catch' && object.type === 'CallExpression') {
-        const finalArg = object.arguments[object.arguments.length - 1];
-        if (finalArg.type === 'FunctionExpression' || finalArg.type === 'ArrowFunctionExpression') {
-          const tryBlock = j.blockStatement([
-            j.variableDeclaration('const', [
-              j.variableDeclarator(finalArg.params[0], j.awaitExpression((object.callee as MemberExpression).object)),
-            ]),
-          ]);
-          if (finalArg.body.type === 'BlockStatement') {
-            tryBlock.body.push(...finalArg.body.body);
-          } else {
-            tryBlock.body.push(j.returnStatement(finalArg.body));
-          }
-
-          const catchBlock = j.blockStatement([]);
-          if (returnArgs[0].body.type === 'BlockStatement') {
-            catchBlock.body.push(...returnArgs[0].body.body);
-          } else {
-            catchBlock.body.push(j.returnStatement(returnArgs[0].body));
-          }
-          body.body.push(
-            j.tryStatement(
-              tryBlock,
-              j.catchClause(
-                // params
-                returnArgs[0].params[0],
-                null,
-                catchBlock
-              )
-            )
-          );
-          return body;
-        }
+        return;
       }
     }
   }
