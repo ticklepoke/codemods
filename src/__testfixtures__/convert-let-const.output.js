@@ -32,3 +32,7 @@ const foo = () => {
   let a = 1;
   a++;
 }
+try {
+  let a = 1;
+  a++;
+} catch (err) {}
