@@ -64,3 +64,10 @@ const g = () => {
 const h = () => h().then((a) => a);
 
 const i = () => i.then((a) => a);
+
+const j = () =>
+  j.then((a) => {
+    return a;
+  });
+
+const k = () => k.then((a) => a).catch((err) => console.error(err));

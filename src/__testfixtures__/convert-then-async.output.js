@@ -52,7 +52,7 @@ async function e() {
   a + b;
 }
 
-const f = async function () {
+const f = async function() {
   const a = await g();
   return a;
 };
@@ -68,6 +68,20 @@ const h = async () => {
 };
 
 const i = async () => {
-  const a = await i();
+  const a = await i;
   return a;
+};
+
+const j = async () => {
+  const a = await j;
+  return a;
+};
+
+const k = async () => {
+  try {
+    const a = await k;
+    return a;
+  } catch (err) {
+    console.error(err);
+  }
 };
