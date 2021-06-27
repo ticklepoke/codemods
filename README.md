@@ -390,6 +390,24 @@ let d = 1;
 let c = d;
 ```
 
+- [ ] **convert-await-loop-promise-all**: Converts await statements in a loop into `Promise.all()`
+```ts
+// from this
+let data = []
+for (let i ....) {
+    data.push(await fn())
+}
+return data
+
+// to this
+let promises = [];
+for (let i ...) {
+    promises.push(fn())
+}
+return Promise.all(promises)
+
+```
+
 ### React Codemods
 
 - [ ] **destructure-props**: Destructures react props:
