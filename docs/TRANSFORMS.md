@@ -134,7 +134,7 @@ Converts variable declarations that are not reassigned from `let` to `const`.
 
 - Supports object patterns `const { a, b } = ...`. Entire object is changed to const only if all properties are not reassigned.
 
-**Improvements**: Support for array patterns: `const [ a ] = fn()`
+- Supports array patterns `let [a, b] = ...`. Entire array pattern is changed to const only if all properties are not reassigned.
 
 ```ts
 // Input code
