@@ -36,3 +36,5 @@ try {
   let a = 1;
   a++;
 } catch (err) {}
+const [d] = foo();
+const [e, f] = bar();

@@ -5,7 +5,6 @@ import {
   ExpressionStatement,
   FileInfo,
   FunctionDeclaration,
-  Property,
   TryStatement,
   VariableDeclaration,
 } from 'jscodeshift';
@@ -72,6 +71,16 @@ function handleVariableDeclaration(node: VariableDeclaration, depth: number, sto
             }
           }
         });
+      } else if (decl.id.type === 'ArrayPattern') {
+        decl.id.elements.forEach((el) => {
+          if (el?.type === 'Identifier') {
+            if (store.has(el.name)) {
+              store.get(el.name)?.push(depth);
+            } else {
+              store.set(el.name, [depth]);
+            }
+          }
+        });
       }
       if (decl.init?.type === 'FunctionExpression') {
         decl.init.body = handleBlock(decl.init.body, depth + 1, store);
@@ -133,6 +142,18 @@ function convertLetConst(body: StatementKind[], depth: number, store: Store): St
                 }
               }
               return false;
+            });
+            if (inStore) {
+              stmt.kind = 'const';
+            }
+          } else if (decl.id.type === 'ArrayPattern') {
+            const inStore = decl.id.elements.every((el) => {
+              if (el?.type === 'Identifier') {
+                if (store.get(el.name)?.includes(depth)) {
+                  return true;
+                }
+                return false;
+              }
             });
             if (inStore) {
               stmt.kind = 'const';
