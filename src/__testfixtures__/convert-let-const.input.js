@@ -36,3 +36,5 @@ try {
   let a = 1;
   a++;
 } catch (err) {}
+let [d] = foo();
+let [e, f] = bar();
