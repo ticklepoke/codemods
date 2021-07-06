@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/ticklepoke/codemods/compare/v1.22.0...v1.23.0) (2021-07-06)
+
+
+### Features
+
+* **let-const:** Support for array patterns ([4fb7a82](https://github.com/ticklepoke/codemods/commit/4fb7a82d90622546f5b3e094564e6392432a30d5))
+
 # [1.22.0](https://github.com/ticklepoke/codemods/compare/v1.21.2...v1.22.0) (2021-06-26)
 
 
