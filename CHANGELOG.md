@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/ticklepoke/codemods/compare/v1.23.0...v1.24.0) (2021-07-07)
+
+
+### Features
+
+* **then-async:** Support for then-finally ([65f0a1d](https://github.com/ticklepoke/codemods/commit/65f0a1da40c2c0f86e8f94901ef748a655cda2b5))
+
 # [1.23.0](https://github.com/ticklepoke/codemods/compare/v1.22.0...v1.23.0) (2021-07-06)
 
 
