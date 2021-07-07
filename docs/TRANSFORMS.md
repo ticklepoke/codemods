@@ -203,7 +203,9 @@ Convert `.then()` promises to `async / await` with support for `catch` and `fina
 
 - Only supports single param callbacks `.then(a => ...)` or `.then(({a, b}) => ...)`. Multi params `.then((a, b) => ...)` and `.then(({a, b}, c) => ...)` are not allowed
 
-**Improvements**: Support for `.then().finally()` without a catch clause
+- Supports `.then().catch().finally()`, `then().finally()`
+
+**Improvements**: Support for `.then().finally().then()` 
 
 ```ts
 // Input code
