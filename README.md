@@ -304,9 +304,7 @@ Convert `.then()` promises to `async / await` with support for `catch` and `fina
 
 - Only supports single param callbacks `.then(a => ...)` or `.then(({a, b}) => ...)`. Multi params `.then((a, b) => ...)` and `.then(({a, b}, c) => ...)` are not allowed
 
-- Supports `.then().catch().finally()`, `then().finally()`
-
-**Improvements**: Support for `.then().finally().then()` 
+**Improvements**: Support for `.then().finally()` without a catch clause
 
 ```ts
 // Input code
@@ -330,6 +328,26 @@ async function bar() {
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
 
+- [x] **convert-bind-arrow-function**: Transform function expression with `.bind(this)` to arrow functions:
+
+```ts
+// from this
+const a = function() {}.bind(this);
+
+// to this
+const a = () => {};
+```
+
+- [x] **convert-function-expression-arrow-function**: Transfrom function expressions to arrow functions without violating lexical `this`. Only converts if `this` is not used in the function body:
+```ts
+// from this
+const a = function() {};
+
+// to this
+const a = () => {};
+
+```
+
 - [ ] **no-params-reassignment**: Convert function params reassignment to scoped variables
 
 ```ts
@@ -342,6 +360,20 @@ bar(baz) {
 bar(baz) {
     _baz = 1;
 }
+```
+
+- [x] **convert-.then-async-await**: Convert `.then()` chaining to `async/await`
+
+```ts
+// from this
+someAsyncFn()
+    .then(res => 
+    // do something
+    )
+    .catch(p)
+    
+// to this
+let res = await someAsyncFn()
 ```
 
 - [ ] **convert-unchained-variables**: Convert chained variable declarations to individual declarations:
@@ -374,20 +406,6 @@ for (let i ...) {
 }
 return Promise.all(promises)
 
-```
-
-- [ ] **convert-object-spread-asign**: Converts object spread to `Object.assign()`
-```ts
-// from this
-const a = {
-    ...otherObj,
-    b: 1
-}
-
-// to this
-const a = Object.assign({}, otherObj, {
-    b: 1
-})
 ```
 
 ### React Codemods
