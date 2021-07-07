@@ -83,3 +83,20 @@ const j = () =>
   });
 
 const k = () => k.then((a) => a).catch((err) => console.error(err));
+
+function l() {
+  return k
+    .then((a) => {
+      1 + 1;
+      return a;
+    })
+    .finally(() => {
+      1 + 1;
+    });
+}
+
+function m() {
+  return n()
+    .then((a) => a)
+    .finally(() => 1 + 1);
+}

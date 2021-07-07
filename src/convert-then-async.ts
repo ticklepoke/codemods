@@ -160,7 +160,16 @@ function createBody(body: BlockStatement | CallExpression, j: JSCodeshift) {
         tryStatement.finalizer = j.blockStatement([j.returnStatement(finallyFn.body)]);
       }
     } else {
-      // TODO: only a then block, need to create a new try/finally
+      const newBody = j.blockStatement(body.body);
+      let handler;
+      if (node.arguments[0].body.type === 'BlockStatement') {
+        handler = j.blockStatement(node.arguments[0].body.body);
+      } else {
+        const returnStatement = j.returnStatement(node.arguments[0].body);
+        handler = j.blockStatement([returnStatement]);
+      }
+      const tryStatement = j.tryStatement(newBody, null, handler);
+      body.body = [tryStatement];
     }
   }
 
@@ -214,7 +223,6 @@ function createBody(body: BlockStatement | CallExpression, j: JSCodeshift) {
       node.callee.object.callee.property.type === 'Identifier' &&
       node.callee.object.callee.property.name === 'then'
     ) {
-      // TODO: if final statement is a return of a previous then block, need to pop off
       const prevThen = body.body.pop();
       if (
         prevThen?.type === 'ReturnStatement' &&
