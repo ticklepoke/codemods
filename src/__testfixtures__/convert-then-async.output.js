@@ -97,3 +97,22 @@ const k = async () => {
     return console.error(err);
   }
 };
+
+async function l() {
+  try {
+    const a = await k;
+    1 + 1;
+    return a;
+  } finally {
+    1 + 1;
+  }
+}
+
+async function m() {
+  try {
+    const a = await n();
+    return a;
+  } finally {
+    return 1 + 1;
+  }
+}
