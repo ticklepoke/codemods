@@ -48,20 +48,6 @@ return Promise.all(promises)
 
 ```
 
-- [ ] **convert-object-spread-asign**: Converts object spread to `Object.assign()`
-```ts
-// from this
-const a = {
-    ...otherObj,
-    b: 1
-}
-
-// to this
-const a = Object.assign({}, otherObj, {
-    b: 1
-})
-```
-
 ### React Codemods
 
 - [ ] **destructure-props**: Destructures react props:
