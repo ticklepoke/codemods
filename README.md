@@ -345,11 +345,12 @@ const b = {
 }
 
 // Output code
-const a = Object.assign({}, {a:1, b:2}, ...otherObj)
+const a = Object.assign({}, {a:1, b:2}, otherObj)
 
 const b = Object.assign({}, {a:1}, otherObj, {b:2})
 
 ```
+
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
