@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Convert object spread patterns to Object.assign()',
+    value: 'convert-spread-assign',
+  },
+  {
     name: 'Convert then() promises to async / await',
     value: 'convert-then-async',
   },
