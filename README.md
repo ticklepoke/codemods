@@ -326,6 +326,30 @@ async function bar() {
 }
 
 ```
+### convert-spread-assign
+
+Converts object spread to `Object.assign`, preserving order of properties being written
+
+```ts
+// Input code
+const a = {
+  a: 1,
+  b: 2,
+  ...otherObj
+}
+
+const b = {
+  a: 1,
+  ...otherObj,
+  b:2
+}
+
+// Output code
+const a = Object.assign({}, {a:1, b:2}, ...otherObj)
+
+const b = Object.assign({}, {a:1}, otherObj, {b:2})
+
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
