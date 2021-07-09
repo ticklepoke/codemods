@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/ticklepoke/codemods/compare/v1.24.0...v1.25.0) (2021-07-09)
+
+
+### Features
+
+* **spread-assign:** Add implementation ([af6e6fd](https://github.com/ticklepoke/codemods/commit/af6e6fde315c3a898a76bdf7cf896df3316299c9))
+
 # [1.24.0](https://github.com/ticklepoke/codemods/compare/v1.23.0...v1.24.0) (2021-07-07)
 
 
