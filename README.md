@@ -353,7 +353,7 @@ const b = Object.assign({}, {a:1}, otherObj, {b:2})
 
 ### convert-chained-declarations
 
-`description of convert-chained-declarations transform here`
+Converts chained variable declarations to individual declarations
 
 ```ts
 // Input code
