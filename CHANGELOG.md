@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/ticklepoke/codemods/compare/v1.25.0...v1.26.0) (2021-07-12)
+
+
+### Features
+
+* **chained-decl:** Add implementation ([88f765c](https://github.com/ticklepoke/codemods/commit/88f765c9f9f17e313de6ad8546ce63cc17476c10))
+
 # [1.25.0](https://github.com/ticklepoke/codemods/compare/v1.24.0...v1.25.0) (2021-07-09)
 
 
