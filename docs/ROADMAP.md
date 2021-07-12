@@ -16,20 +16,6 @@ bar(baz) {
 }
 ```
 
-- [ ] **convert-unchained-variables**: Convert chained variable declarations to individual declarations:
-```ts
-// from this
-let a = b = [];
-let c = d = 1;
-
-// to this
-let b = [];
-let a = b;
-
-let d = 1;
-let c = d;
-```
-
 - [ ] **convert-await-loop-promise-all**: Converts await statements in a loop into `Promise.all()`
 ```ts
 // from this
