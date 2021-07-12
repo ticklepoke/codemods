@@ -249,3 +249,18 @@ const a = Object.assign({}, {a:1, b:2}, otherObj)
 const b = Object.assign({}, {a:1}, otherObj, {b:2})
 
 ```
+
+### convert-chained-declarations
+
+`description of convert-chained-declarations transform here`
+
+```ts
+// Input code
+let a = b = [];
+let c = d = 1;
+
+// Output code
+let b = [], a = b;
+
+let d = 1, c = d;
+```

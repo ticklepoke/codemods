@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Convert chained variable declarations to individual declarations',
+    value: 'convert-chained-declarations',
+  },
+  {
     name: 'Convert object spread patterns to Object.assign()',
     value: 'convert-spread-assign',
   },

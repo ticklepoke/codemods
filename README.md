@@ -351,6 +351,20 @@ const b = Object.assign({}, {a:1}, otherObj, {b:2})
 
 ```
 
+### convert-chained-declarations
+
+`description of convert-chained-declarations transform here`
+
+```ts
+// Input code
+let a = b = [];
+let c = d = 1;
+
+// Output code
+let b = [], a = b;
+
+let d = 1, c = d;
+```
 ## Road Map
 
 Future transforms in the works. Feel free to open an issue if you would like to suggest another transform.
@@ -367,20 +381,6 @@ bar(baz) {
 bar(baz) {
     _baz = 1;
 }
-```
-
-- [ ] **convert-unchained-variables**: Convert chained variable declarations to individual declarations:
-```ts
-// from this
-let a = b = [];
-let c = d = 1;
-
-// to this
-let b = [];
-let a = b;
-
-let d = 1;
-let c = d;
 ```
 
 - [ ] **convert-await-loop-promise-all**: Converts await statements in a loop into `Promise.all()`
