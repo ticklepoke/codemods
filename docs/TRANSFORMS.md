@@ -264,3 +264,29 @@ let b = [], a = b;
 
 let d = 1, c = d;
 ```
+### convert-react-pure
+
+Converts a react class component with only a `render()` method into a `React.memo` functional component
+
+```ts
+// Input code
+class Foo extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.bar}
+      </div>
+    )
+  }
+}
+
+// Output code
+const Foo = React.memo(function (props) {
+  return (
+    <div>
+      {props.bar}
+    </div>
+  )
+})
+
+```

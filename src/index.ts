@@ -11,6 +11,10 @@ const TRANSFORMS = [
   },
   // YARN PLOP TRANSFORMS
   {
+    name: 'Converts a react class component with only a `render()` method into a `React.memo` functional component',
+    value: 'convert-react-pure',
+  },
+  {
     name: 'Convert chained variable declarations to individual declarations',
     value: 'convert-chained-declarations',
   },
