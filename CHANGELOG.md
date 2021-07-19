@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/ticklepoke/codemods/compare/v1.26.0...v1.27.0) (2021-07-19)
+
+
+### Features
+
+* **react-pure:** Add implementation ([e878ffe](https://github.com/ticklepoke/codemods/commit/e878ffe514c9e0a59668d1a6736dbb216cbf2375))
+
 # [1.26.0](https://github.com/ticklepoke/codemods/compare/v1.25.0...v1.26.0) (2021-07-12)
 
 
