@@ -268,6 +268,11 @@ let d = 1, c = d;
 
 Converts a react class component with only a `render()` method into a `React.memo` functional component
 
+- Considers both MethodDefinitions `render()` and ClassProperties `render = () => {}`
+- Does not modify `render`'s function body before the return statement. This body could potentially have side effect which defeats the purpose of `React.memo`, but most idiomatic react code does not have side effects in `render`'s body
+- Supports props detructuring: `const { bar } = this.props` becomes `const { bar } = props`
+- Removes this expression destructuring: `const { props } = this`
+
 ```ts
 // Input code
 class Foo extends React.Component {
