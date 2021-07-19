@@ -45,5 +45,3 @@ this.props.bar;
 const { bar } = this.props;
 bar;
 ```
-
-- [ ] **pure-to-memo-function**: Converts class components with only a `render()` method into a `React.memo` functional component
